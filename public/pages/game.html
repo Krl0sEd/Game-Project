@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Simulator</title>
+    <link rel="stylesheet" href="../assets/css/game.css">
+</head>
+
+<body>
+
+    <!-- Ícones do Desktop -->
+    <div class="desktop">
+        <div class="icon" onclick="openWindow()">
+            <img title="imagem" src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
+            <p>Explorer</p>
+        </div>
+    </div>
+
+    <!-- Janela Fake -->
+    <div class="window" id="janela">
+        <div class="titlebar" id="drag">
+            Explorer
+            <span class="close-btn" onclick="closeWindow()">X</span>
+        </div>
+        <div class="content">
+            <p>Esta é uma janela fake do seu "Windows Simulator".</p>
+        </div>
+    </div>
+
+    <!-- Menu Iniciar -->
+    <div class="start-menu" id="startMenu"></div>
+
+    <!-- Barra de Tarefas -->
+    <div class="taskbar">
+        <img title="imagem" src="https://i.imgur.com/YHC1AmR.png" id="startBtn">
+        <img title="imagem" src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/game.js"></script>
+
+</body>
+</html>
