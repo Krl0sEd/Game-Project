@@ -1,45 +1,134 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+
+<html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Simulator</title>
+    <title> Compu-Zone OS </title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/game.css">
+    <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
+
 </head>
 
 <body>
 
-    <!-- Ícones do Desktop -->
-    <div class="desktop">
-        <div class="icon" onclick="openWindow()">
-            <img title="imagem" src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-            <p>Explorer</p>
+<div id="mission-box">
+    <span class="mission-label">🎯 MISSÃO ATUAL:</span>
+    <p id="mission-text"> 01) Abra o "My Computer"</p>
+</div>
+
+    <div id="desktop">
+        <div class="desktop-icon" onclick="abrirJanela()">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="PC">
+            <div>My Computer</div>
+        </div>
+        
+        <div class="desktop-icon">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixo">
+            <div>Recycle Bin</div>
+        </div>
+        
+        <div class="desktop-icon">
+            <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-4.png" alt="Floppy">
+            <div>Floppy (C:)</div>
+        </div>
+
+        <div class="desktop-icon">
+            <img src="https://omunicipio.com.br/wp-content/uploads/static/fotos/noticias/1428/Senac2-1280x720.jpg" alt="Senac">
+            <div>Senac (D:)</div>
         </div>
     </div>
 
-    <!-- Janela Fake -->
-    <div class="window" id="janela">
-        <div class="titlebar" id="drag">
-            Explorer
-            <span class="close-btn" onclick="closeWindow()">X</span>
+    <div class="window" id="program-manager">
+        <div class="title-bar">
+            <span>Program Manager</span>
+            <div class="window-controls">
+                <div class="btn-control" onclick="minimizarJanela()">_</div>
+                <div class="btn-control" onclick="fecharJanela()" style="background:#cc0000; color:white;">X</div>
+            </div>
         </div>
-        <div class="content">
-            <p>Esta é uma janela fake do seu "Windows Simulator".</p>
+        
+        <div class="menu-bar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Options</span>
+            <span class="menu-item">Window</span>
+            <span class="menu-item">Help</span>
+        </div>
+
+        <div class="window-content">
+            <div class="folder-item" onclick="abrirPastaGames()">
+                <div class="folder-icon" style="background-color: #ff00ff;"></div>
+                <span>Games</span>
+            </div>
+            <div class="folder-item">
+                <div class="folder-icon" style="background-color: #00ffff;"></div>
+                <span>Work</span>
+            </div>
+            <div class="folder-item">
+                <div class="folder-icon"></div>
+                <span>System</span>
+            </div>
+            <div class="folder-item">
+                <div class="folder-icon"></div>
+                <span>Tools</span>
+            </div>
+            <div class="folder-item">
+                <div class="folder-icon" style="background: red;"></div>
+                <span>Doom.exe</span>
+            </div>
         </div>
     </div>
 
-    <!-- Menu Iniciar -->
-    <div class="start-menu" id="startMenu"></div>
+    <div id="start-menu" class="start-menu">
+    <div class="sidebar-strip">
+        <span class="os-version"> COMPU-ZONE 95 </span>
+    </div>
+    
+    <div class="menu-list">
+        <div class="menu-item">
+            <img src="https://static.vecteezy.com/system/resources/previews/032/510/691/non_2x/abstract-80s-interface-retro-computer-black-screen-with-old-programs-dark-ui-program-glitch-and-hack-or-virtual-virus-attack-illustration-vector.jpg" alt="Icon">
+            <span>Programas</span>
+            <div class="arrow">▶</div> </div>
+        
+        <div class="menu-item" onclick="abrirJanela()">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Icon">
+            <span>Documentos</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png" alt="Icon">
+            <span>Configurações</span>
+        </div>
+        
+        <div class="divider"></div> <div class="menu-item" onclick="alert('Faz de conta que desligou...')">
+            <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" alt="Icon">
+            <span>Desligar...</span>
+        </div>
+    </div>
+</div>
 
-    <!-- Barra de Tarefas -->
-    <div class="taskbar">
-        <img title="imagem" src="https://i.imgur.com/YHC1AmR.png" id="startBtn">
-        <img title="imagem" src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
+    <div id="taskbar">
+        <div class="start-btn">
+            <div class="start-icon"></div>
+            <span>Menu</span>
+        </div>
+        <div class="clock">1:00 PM</div>
     </div>
 
-    <!-- Scripts -->
+    <audio id="musica-fundo" loop>
+    <source src="../assets/audio/trilha_sonora.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+</audio>
+
+<audio id="som-minimizar">
+    <source src="../assets/audio/minimizar.wav" type="audio/mpeg">
+</audio>
+
     <script src="../assets/js/game.js"></script>
 
 </body>
+
 </html>
