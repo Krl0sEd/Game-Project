@@ -1,206 +1,238 @@
-/* --- ARQUIVO: assets/js/game.js --- */
+// =================================================
+// CONFIGURAÇÃO DAS MISSÕES E PONTUAÇÃO
+// =================================================
+const missoes = [
+    { 
+        id: 0, 
+        texto: '01) Abra o "Meu Computador"', 
+        acaoNecessaria: 'abrir_pc' 
+    },
+    { 
+        id: 1, 
+        texto: '02) Acesse a pasta "Ferramentas"', 
+        acaoNecessaria: 'abrir_pasta_ferramentas' 
+    },
+    { 
+        id: 2, 
+        texto: '03) Tente rodar o "Doom.exe"', 
+        acaoNecessaria: 'abrir_doom' 
+    }
+    // Removi a missão de "Parabéns" da lista, pois vamos redirecionar antes
+];
 
-// Espera a página carregar 100% antes de rodar o script
+let missaoAtual = 0; 
+let pontuacaoTotal = 0;
+let tempoInicioMissao = Date.now(); // Marca a hora que o jogo começou
+
+// =================================================
+// FUNÇÃO DE CÁLCULO DE PONTOS (A Lógica Time Attack)
+// =================================================
+function calcularPontosDaRodada() {
+    const tempoFinal = Date.now();
+    const tempoGastoSegundos = (tempoFinal - tempoInicioMissao) / 1000; // Converte ms para segundos
+    
+    // FÓRMULA: Cada missão vale 1000 pontos.
+    // O jogador perde 20 pontos por cada segundo que demorar.
+    // Mínimo de 50 pontos para não frustrar quem é lento.
+    let pontosGanhos = 1000 - (tempoGastoSegundos * 20);
+    
+    if (pontosGanhos < 50) pontosGanhos = 50; // Piso mínimo
+    
+    // Arredonda para não ficar número quebrado
+    pontosGanhos = Math.floor(pontosGanhos);
+
+    console.log(`Levou ${tempoGastoSegundos.toFixed(2)}s. Ganhou: ${pontosGanhos} pts.`);
+    return pontosGanhos;
+}
+
+// =================================================
+// ATUALIZAÇÃO DE TELA (Missão e Score)
+// =================================================
+function atualizarHUD() {
+    const elementoTexto = document.getElementById("mission-text");
+    const elementoScore = document.getElementById("score-val");
+    const caixaMissao = document.getElementById("mission-box");
+    
+    // Atualiza o Score na tela
+    if(elementoScore) elementoScore.innerText = pontuacaoTotal;
+
+    // Efeito visual de acerto
+    if(caixaMissao) {
+        caixaMissao.style.backgroundColor = "#00aa00"; 
+        setTimeout(() => { caixaMissao.style.backgroundColor = ""; }, 300);
+    }
+
+    // Atualiza Texto da Missão
+    if (elementoTexto && missaoAtual < missoes.length) {
+        elementoTexto.innerText = missoes[missaoAtual].texto;
+        elementoTexto.style.color = "#00ff00";
+    }
+}
+
+// =================================================
+// CHECAGEM DE MISSÃO (O Coração do Jogo)
+// =================================================
+function checarMissao(acaoDoJogador) {
+    // Se já acabou as missões, ignora
+    if (missaoAtual >= missoes.length) return;
+
+    // Verifica se acertou
+    if (acaoDoJogador === missoes[missaoAtual].acaoNecessaria) {
+        
+        // 1. CALCULA E SOMA PONTOS
+        const pontos = calcularPontosDaRodada();
+        pontuacaoTotal += pontos;
+        
+        // 2. RESETA O RELÓGIO PARA A PRÓXIMA MISSÃO
+        tempoInicioMissao = Date.now();
+
+        // 3. AVANÇA MISSÃO
+        missaoAtual++; 
+
+        // 4. VERIFICA FIM DE JOGO
+        if (missaoAtual >= missoes.length) {
+            finalizarJogo();
+        } else {
+            atualizarHUD();
+        }
+    }
+}
+
+// =================================================
+// FIM DE JOGO E REDIRECIONAMENTO
+// =================================================
+function finalizarJogo() {
+    alert(`PARABÉNS! Jogo Hackeado.\nSua Pontuação Final: ${pontuacaoTotal}`);
+
+    // 1. Recupera o nome do jogador
+    const nomeJogador = localStorage.getItem('playerName') || "Anonimo";
+
+    // 2. Cria o objeto do recorde atual
+    const novoRecorde = {
+        nome: nomeJogador,
+        pontos: pontuacaoTotal,
+        data: new Date().toLocaleDateString()
+    };
+
+    // 3. Recupera o Leaderboard antigo (ou cria um array vazio se não existir)
+    let leaderboard = JSON.parse(localStorage.getItem('gameLeaderboard')) || [];
+
+    // 4. Adiciona o novo recorde e Salva de volta
+    leaderboard.push(novoRecorde);
+    
+    // (Opcional: Ordenar do maior para o menor antes de salvar)
+    leaderboard.sort((a, b) => b.pontos - a.pontos);
+
+    localStorage.setItem('gameLeaderboard', JSON.stringify(leaderboard));
+
+    // 5. REDIRECIONA PARA A TELA DE RANKING
+    window.location.href = "leaderboard.html";
+}
+
+
+// =================================================
+// INICIALIZAÇÃO (Window OnLoad)
+// =================================================
 window.onload = function() {
     
-    // =================================================
-    // 1. RECUPERAR NOME DO JOGADOR (Login)
-    // =================================================
+    // Garante que o relógio comece AGORA
+    tempoInicioMissao = Date.now();
+
+    // -- RECUPERAR NOME --
     const nomeSalvo = localStorage.getItem('playerName');
     const tituloJanela = document.querySelector('.title-bar span');
-
-    if (!nomeSalvo) {
-        // Se não tiver nome, manda voltar pro login (Segurança)
-        // window.location.href = "../index.html"; 
-        console.log("Usuário sem nome (Modo de Teste)");
-    } else {
-        console.log("Jogador logado: " + nomeSalvo);
-        // Atualiza o título da janela com o nome do usuário
-        if (tituloJanela) {
-            tituloJanela.innerText = `Program Manager - ${nomeSalvo}`;
-        }
+    if (nomeSalvo && tituloJanela) {
+        tituloJanela.innerText = `Program Manager - ${nomeSalvo}`;
     }
 
-    // =================================================
-    // 2. SISTEMA DE MÚSICA (Audio)
-    // =================================================
+    // -- SISTEMA DE MÚSICA --
     const audio = document.getElementById('musica-fundo');
     if (audio) {
-        audio.volume = 0.1; // 10% de volume
-        
-        // Tenta dar o Play
-        var promessaDePlay = audio.play();
-
-        if (promessaDePlay !== undefined) {
-            promessaDePlay.catch(error => {
-                console.log("Autoplay bloqueado. Aguardando clique...");
-                // Liga o som no primeiro clique em qualquer lugar
-                document.body.addEventListener('click', function() {
-                    audio.play();
-                }, { once: true });
-            });
-        }
+        audio.volume = 0.1; 
+        audio.play().catch(() => {
+            document.body.addEventListener('click', () => audio.play(), { once: true });
+        });
     }
 
-    // =================================================
-    // 3. ARRASTAR JANELA (Drag and Drop)
-    // =================================================
+    // -- ARRASTAR JANELA (Drag logic) --
     const janela = document.getElementById("program-manager");
     const barraTitulo = janela.querySelector(".title-bar");
-    
-    let isDragging = false;
-    let startX, startY, initialLeft, initialTop;
+    let isDragging = false, startX, startY, initialLeft, initialTop;
 
     barraTitulo.addEventListener("mousedown", (e) => {
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialLeft = janela.offsetLeft;
-        initialTop = janela.offsetTop;
-        // Muda o cursor para indicar movimento
+        startX = e.clientX; startY = e.clientY;
+        initialLeft = janela.offsetLeft; initialTop = janela.offsetTop;
         document.body.style.cursor = "move";
     });
 
     window.addEventListener("mousemove", (e) => {
         if (isDragging) {
-            e.preventDefault(); // Evita selecionar texto
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
+            e.preventDefault();
+            const dx = e.clientX - startX; const dy = e.clientY - startY;
             janela.style.left = `${initialLeft + dx}px`;
             janela.style.top = `${initialTop + dy}px`;
         }
     });
+    window.addEventListener("mouseup", () => { isDragging = false; document.body.style.cursor = "default"; });
 
-    window.addEventListener("mouseup", () => {
-        isDragging = false;
-        document.body.style.cursor = "default";
-    });
-
-    // =================================================
-    // 4. MENU INICIAR (Lógica de Abrir/Fechar)
-    // =================================================
+    // -- MENU INICIAR --
     const btnMenu = document.querySelector('.start-btn');
     const menuIniciar = document.getElementById('start-menu');
 
-    // Clicou no botão "Menu"
-    btnMenu.addEventListener('click', function(e) {
-        e.stopPropagation(); // Não deixa o clique passar pro fundo
-        
-        // Abre ou fecha
+    btnMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
         menuIniciar.classList.toggle('aberto');
-        
-        // Efeito visual no botão (Afunda/Levanta)
-        if (menuIniciar.classList.contains('aberto')) {
-            btnMenu.style.borderStyle = "inset";
-            btnMenu.style.backgroundColor = "#ddd";
-        } else {
-            btnMenu.style.borderStyle = "outset";
-            btnMenu.style.backgroundColor = "";
-        }
+        btnMenu.style.borderStyle = menuIniciar.classList.contains('aberto') ? "inset" : "outset";
+        btnMenu.style.backgroundColor = menuIniciar.classList.contains('aberto') ? "#ddd" : "";
     });
 
-    // Clicou fora do menu (para fechar)
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', (e) => {
         if (!menuIniciar.contains(e.target) && menuIniciar.classList.contains('aberto')) {
             menuIniciar.classList.remove('aberto');
-            
-            // Restaura o botão
             btnMenu.style.borderStyle = "outset";
             btnMenu.style.backgroundColor = "";
         }
     });
 
-    // Função para minimizar a janela COM SOM
-    window.minimizarJanela = function() {
-        const janela = document.getElementById('program-manager');
-        const sfx = document.getElementById('som-minimizar');
-        
-        // 1. Toca o som (se o elemento de áudio existir)
-        if (sfx) {
-            sfx.currentTime = 0; // Reinicia o som para o começo (caso clique rápido)
-            sfx.volume = 0.3;    // Volume 30% pra não estourar o ouvido
-            sfx.play().catch(e => console.log("Erro ao tocar SFX:", e));
-        }
-
-        // 2. Esconde a janela
-        janela.style.display = 'none';
-    }
-
-    // =================================================
-    // 5. RELÓGIO (Bônus: Faz o horário andar)
-    // =================================================
+    // -- RELÓGIO --
     function atualizarRelogio() {
         const agora = new Date();
-        let horas = agora.getHours();
-        let minutos = agora.getMinutes();
-        const ampm = horas >= 12 ? 'PM' : 'AM';
-        
-        horas = horas % 12;
-        horas = horas ? horas : 12; 
-        minutos = minutos < 10 ? '0' + minutos : minutos;
-        
-        const horarioFormatado = horas + ':' + minutos + ' ' + ampm;
         const divRelogio = document.querySelector('.clock');
-        if(divRelogio) divRelogio.innerText = horarioFormatado;
+        if(divRelogio) divRelogio.innerText = agora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }
-    
     setInterval(atualizarRelogio, 1000);
     atualizarRelogio();
-};
 
-// =================================================
-    // 6. LÓGICA DE JANELAS E MISSÕES
+    // =================================================
+    // FUNÇÕES GLOBAIS (Ações do Jogo)
     // =================================================
     
-    // Função global para abrir a janela (chamada pelo onclick do HTML)
+    window.minimizarJanela = function() {
+        const sfx = document.getElementById('som-minimizar');
+        if (sfx) sfx.play().catch(e => {});
+        document.getElementById('program-manager').style.display = 'none';
+    }
+
     window.abrirJanela = function() {
         const janela = document.getElementById('program-manager');
-        const missaoTexto = document.getElementById('mission-text');
-        
-        // 1. Abre a janela
         janela.style.display = 'flex';
-        
-        // 2. Centraliza ela bonitinho (Reset de posição)
-        janela.style.top = '15%';
-        janela.style.left = '20%';
-
-        // 3. Atualiza a Missão (Se a missão for a número 1)
-        if (missaoTexto && missaoTexto.innerText.includes("01)")) {
-            // Toca um efeito visual ou sonoro aqui se quiser depois
-            missaoTexto.style.color = "#00ff00"; // Pisca verde
-            
-            // Espera meio segundo para trocar o texto (efeito dramático)
-            setTimeout(() => {
-                missaoTexto.innerText = "02) Acesse a pasta 'Games'";
-                missaoTexto.style.color = "#00ff00"; // Mantém verde matrix
-            }, 500);
-        }
+        janela.style.top = '15%'; janela.style.left = '20%';
+        checarMissao('abrir_pc');
     }
 
-    // Função global para fechar a janela
     window.fecharJanela = function() {
-         const janela = document.getElementById('program-manager');
-         janela.style.display = 'none';
+         document.getElementById('program-manager').style.display = 'none';
     }
 
-    // Função para quando clicar na pasta Games
     window.abrirPastaGames = function() {
-        const missaoTexto = document.getElementById('mission-text');
-        
-        // Verifica se o jogador está na missão certa
-        if (missaoTexto && missaoTexto.innerText.includes("02)")) {
-            
-            // 1. Efeito visual (Pode ser um alert ou mudar a cor da pasta)
-            alert("ACESSO AUTORIZADO! Iniciando Doom.exe...");
-            
-            // 2. Atualiza a missão para a final
-            missaoTexto.style.color = "#ff00ff"; // Rosa choque
-            missaoTexto.innerText = "03) Execute o arquivo DOOM.EXE";
-            
-            // Opcional: Aqui você poderia abrir uma segunda janela "Games"
-            // Mas por enquanto, só validar a missão já dá a sensação de progresso.
-        } else {
-            // Se tentar abrir antes da hora
-            alert("Erro: Você precisa abrir o 'My Computer' antes!");
-        }
+        checarMissao('abrir_pasta_ferramentas');
+        if (missaoAtual < 2) alert("Siga a ordem das missões!");
     }
+    
+    window.abrirDoom = function() {
+        // Essa é a ultima ação. Ao chamar checarMissao aqui, 
+        // ele vai ver que acabou e chamar finalizarJogo()
+        checarMissao('abrir_doom'); 
+    }
+};

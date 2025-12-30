@@ -9,36 +9,42 @@
     <title> Compu-Zone OS </title>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/game.css">
+    <link rel="stylesheet" href="../assets/css/responsividade.css">
     <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
 
 </head>
 
 <body>
 
+    <div id="score-box" style="position: absolute; top: 20px; right: 20px; color: #00ff00; font-family: 'Pixelify Sans', sans-serif; font-size: 24px; z-index: 1000;">
+        SCORE: <span id="score-val">0</span>
+    </div>
+
 <div id="mission-box">
     <span class="mission-label">🎯 MISSÃO ATUAL:</span>
-    <p id="mission-text"> 01) Abra o "My Computer"</p>
+    <p id="mission-text"> 01) Abra o "Meu Computador"</p>
 </div>
+
 
     <div id="desktop">
         <div class="desktop-icon" onclick="abrirJanela()">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="PC">
-            <div>My Computer</div>
+            <div> Meu Computador </div>
         </div>
         
         <div class="desktop-icon">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixo">
-            <div>Recycle Bin</div>
+            <div> Lixeira </div>
         </div>
         
         <div class="desktop-icon">
             <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-4.png" alt="Floppy">
-            <div>Floppy (C:)</div>
+            <div> System32 (C:)</div>
         </div>
 
         <div class="desktop-icon">
             <img src="https://omunicipio.com.br/wp-content/uploads/static/fotos/noticias/1428/Senac2-1280x720.jpg" alt="Senac">
-            <div>Senac (D:)</div>
+            <div> Senac (D:) </div>
         </div>
     </div>
 
@@ -60,26 +66,32 @@
 
         <div class="window-content">
             <div class="folder-item" onclick="abrirPastaGames()">
-                <div class="folder-icon" style="background-color: #ff00ff;"></div>
+                <img class="folder-icon"src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Folder">
                 <span>Games</span>
             </div>
+
             <div class="folder-item">
-                <div class="folder-icon" style="background-color: #00ffff;"></div>
-                <span>Work</span>
+                <img class="folder-icon"src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Folder" style="filter: hue-rotate(160deg);">
+                <span> Documentos </span>
             </div>
+
             <div class="folder-item">
-                <div class="folder-icon"></div>
-                <span>System</span>
+                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="Folder">
+                <span> Sistema </span>
             </div>
+
             <div class="folder-item">
-                <div class="folder-icon"></div>
-                <span>Tools</span>
+                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png" alt="Folder">
+                <span> Ferramentas </span>
             </div>
-            <div class="folder-item">
-                <div class="folder-icon" style="background: red;"></div>
+
+            <div class="folder-item" onclick="abrirDoom()">
+                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/game_freecell-1.png" style="filter: drop-shadow(2px 2px 0 red);" alt="Folder">
                 <span>Doom.exe</span>
             </div>
+
         </div>
+
     </div>
 
     <div id="start-menu" class="start-menu">
@@ -95,7 +107,7 @@
         
         <div class="menu-item" onclick="abrirJanela()">
             <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Icon">
-            <span>Documentos</span>
+            <span> CMD </span>
         </div>
         
         <div class="menu-item">

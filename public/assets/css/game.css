@@ -147,18 +147,27 @@
 
         /* Item dentro da janela (pasta/arquivo) */
         .folder-item {
-            text-align: center;
-            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px; /* Largura fixa para alinhar */
+            margin: 10px;
             cursor: pointer;
+            text-align: center;
+        }
+
+        .folder-item:hover {
+            background-color: rgba(0, 0, 128, 0.1); /* Efeito hover sutil */
+            border: 1px dotted #000;
         }
         
+        /* O segredo do pixel art nítido */
         .folder-icon {
             width: 32px;
             height: 32px;
-            background-color: #ffd700; /* Amarelo pasta */
-            border: 1px solid black;
-            margin: 0 auto 5px auto;
-            display: block;
+            image-rendering: pixelated; /* Garante que os pixels fiquem quadradinhos */
+            margin-bottom: 5px;
         }
 
         /* --- BARRA DE TAREFAS (Rodapé) --- */
