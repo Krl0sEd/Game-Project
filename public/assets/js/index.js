@@ -14,7 +14,7 @@ function entrar() {
 
     // 4. Redireciona para a tela do jogo (a área de trabalho retrô)
     // OBS: Verifique se o nome do seu arquivo principal é 'game.html' ou 'desktop.html'
-    window.location.href = "game.html"; 
+    window.location.href = "/public/game.html"; 
 }
 
     // Permitir apertar ENTER para entrar
