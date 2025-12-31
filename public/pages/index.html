@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,25 +8,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
 
-    <title> Office Simulator - Login </title>
-
+    <title>Office Simulator - Login</title>
 </head>
-
 <body>
 
-<div class="login-box">
+    <div class="login-container">
+        
+        <div class="user-avatar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="User">
+        </div>
 
-    <h2> Office Simulator </h2>
-    <p> Escolha seu nickname </p>
+        <h2 class="os-title">Office OS</h2>
+        
+        <div class="input-group">
+            <input type="text" id="nickname" placeholder="Digite seu Usuário..." autocomplete="off">
+            <button onclick="entrar()" title="Entrar">➜</button>
+        </div>
 
-    <input type="text" id="nickname" placeholder="Digite seu nick">
+        <div class="footer-options">
+            <span>Desligar</span>
+            <span>Reiniciar</span>
+        </div>
 
-    <button onclick="entrar()">Entrar</button>
+    </div>
 
-</div>
-
-<script src="../assets/js/index.js"></script>
-
+    <script src="../assets/js/index.js"></script>
 </body>
-
 </html>

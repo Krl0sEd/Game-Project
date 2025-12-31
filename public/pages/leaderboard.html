@@ -1,30 +1,75 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Simulator - Ranking Corporativo</title>
     <link rel="stylesheet" href="../assets/css/leaderboard.css">
     <link rel="stylesheet" href="../assets/css/responsividade.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
-
-    <title> Office Simulator - Leaderboard </title>
-
 </head>
-
 <body>
 
-<div class="login-box">
+    <div class="janela-leaderboard">
+        
+        <div class="barra-titulo">
+            <div class="titulo-texto">
+                <img src="https://win98icons.alexmeub.com/icons/png/users-1.png" alt="icon" width="16">
+                <span>Top Funcionários do Mês.exe</span>
+            </div>
+            <div class="botoes-janela">
+                <button aria-label="Minimizar">_</button>
+                <button aria-label="Maximizar">□</button>
+                <button aria-label="Fechar" onclick="window.location.href='index.html'">X</button>
+            </div>
+        </div>
 
-    <h2> Office Simulator </h2>
-    <p> Melhores pontuações </p>
+        <div class="conteudo-interno">
+            <header class="cabecalho-ranking">
+                <h2>🏆 Quadro de Produtividade</h2>
+                <p>Quem trabalhou (ou fingiu) melhor?</p>
+            </header>
 
-</div>
+            <div class="tabela-container">
+                <table class="tabela-retro">
+                    <thead>
+                        <tr>
+                            <th># Rank</th>
+                            <th>Funcionário</th>
+                            <th>Salário (Pts)</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                        <tr>
+                            <td>1</td>
+                            <td>Chefe Oculto</td>
+                            <td>999999</td>
+                            <td>Ontem</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>Carregando...</td>
+                            <td>---</td>
+                            <td>---</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-<script src="../assets/js/leaderboard.js"></script>
+            <div class="rodape-acoes">
+                <button class="btn-retro" onclick="window.location.href='index.html'">
+                    <img src="https://static.vecteezy.com/system/resources/previews/026/551/104/non_2x/leftwards-arrow-pixelated-ui-icon-pressing-left-setting-menu-selection-mode-editable-8bit-graphic-element-outline-isolated-user-interface-image-for-web-mobile-app-retro-style-vector.jpg" width="16" style="mix-blend-mode: multiply;"alt="icon">
+                    Voltar ao Menu
+                </button>
+                <button class="btn-retro" id="btn-limpar">Limpar Histórico</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/leaderboard.js"></script>
 
 </body>
-
 </html>

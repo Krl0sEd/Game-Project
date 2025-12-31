@@ -385,3 +385,80 @@ body {
     font-size: 16px;
     font-weight: bold;
 }
+
+/* Estilo da Janela Flutuante */
+.janela-flutuante {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza exatamente no meio */
+    width: 400px;
+    background-color: #c0c0c0; /* Cinza clássico do Windows */
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff; /* Efeito 3D */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    z-index: 1000; /* Garante que fique na frente de tudo */
+    font-family: 'Tahoma', sans-serif;
+    font-size: 14px;
+}
+
+/* Barra de Título Azul */
+.barra-titulo {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.btn-fechar {
+    background: #c0c0c0;
+    border: 1px solid #fff;
+    border-right-color: #000;
+    border-bottom-color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 16px;
+    padding: 0;
+}
+
+/* Conteúdo Interno */
+.conteudo-janela {
+    display: flex;
+    padding: 20px;
+    gap: 15px;
+}
+
+.info-texto ul {
+    list-style: none;
+    padding-left: 5px;
+    margin-top: 5px;
+}
+
+.info-texto li {
+    margin-bottom: 4px;
+}
+
+/* Botões do Rodapé */
+.rodape-janela {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.rodape-janela button {
+    padding: 5px 20px;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    background-color: #c0c0c0;
+    cursor: pointer;
+}
+
+.rodape-janela button:active {
+    border-color: #808080 #ffffff #ffffff #808080; /* Efeito de clique */
+}

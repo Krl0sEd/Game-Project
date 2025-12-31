@@ -48,6 +48,22 @@ let missaoAtual = 0;
 let pontuacaoTotal = 0;
 let tempoInicioMissao = Date.now();
 
+
+// Especificações do computador
+
+function abrirConfiguracoes() {
+    // Seleciona a janela pelo ID
+    const janela = document.getElementById('janela-specs');
+    // Torna ela visível
+    janela.style.display = 'block';
+}
+
+function fecharConfiguracoes() {
+    // Esconde a janela novamente
+    const janela = document.getElementById('janela-specs');
+    janela.style.display = 'none';
+}
+
 // =================================================
 // 2. SISTEMA DE PONTUAÇÃO (Time Attack)
 // =================================================
@@ -69,6 +85,40 @@ let tempoInicioMissao = Date.now();
         
         console.log("Jogo salvo automaticamente:", dadosDoJogo);
     }
+
+    // --- LEADERBOARD ---
+// Essa função conecta com o meu leaderboard.html
+function finalizarJogo() {
+    // 1. Pergunta o nome (ou usa o que já temos)
+    let nomeJogador = localStorage.getItem('playerName');
+    
+    if (!nomeJogador || nomeJogador === "Anonimo") {
+        nomeJogador = prompt("FIM DE EXPEDIENTE! \nDigite seu nome para o RH:") || "Estagiário Anônimo";
+    } else {
+        alert(`FIM DE EXPEDIENTE!\nParabéns ${nomeJogador}, sua pontuação foi: ${pontuacaoTotal}`);
+    }
+
+    // 2. Cria o objeto do Ranking (igual ao leaderboard.js)
+    const novoRegistro = {
+        nome: nomeJogador,
+        pontos: pontuacaoTotal,
+        data: new Date().toLocaleDateString('pt-BR')
+    };
+
+    // 3. Pega o histórico antigo
+    const CHAVE_SAVE = 'officeSimRanking'; // Tem que ser igual ao leaderboard.js
+    let historico = JSON.parse(localStorage.getItem(CHAVE_SAVE)) || [];
+
+    // 4. Adiciona e Salva
+    historico.push(novoRegistro);
+    localStorage.setItem(CHAVE_SAVE, JSON.stringify(historico));
+
+    // 5. Limpa o save temporário (já acabou o jogo)
+    localStorage.removeItem('compuZone_SaveData');
+
+    // 6. Manda para a página de Ranking
+    window.location.href = "leaderboard.html"; 
+}
 
 function calcularPontosDaRodada() {
     const tempoFinal = Date.now();
@@ -113,7 +163,7 @@ function checarMissao(acao) {
         tempoInicioMissao = Date.now(); // Reseta relógio
         missaoAtual++; 
 
-        // SALVAR O PROGRESSO AQUI ---
+        // SALVO O PROGRESSO AQUI ---
         salvarProgresso();
 
         if (missaoAtual >= missoes.length) {
@@ -253,7 +303,7 @@ window.onload = function() {
     }
 
     window.abrirCalculadora = function() {
-        alert("🧮 Calculadora: 1 + 1 = 2 (Sistema funcionando!)");
+        alert("🧮 Calculadora: 1 + 1 = 11 (Sistema funcionando!)");
         checarMissao('abrir_calc');
     }
 
@@ -297,6 +347,7 @@ window.onload = function() {
             menuIniciar.classList.remove('aberto'); 
         }
     }
+
 
    // --- CONTROLES DE JANELA (AGORA TODOS COM SOM!) ---
     
@@ -362,5 +413,29 @@ window.onload = function() {
     window.menuIndisponivel = function() {
         alert("🚧 EM CONSTRUÇÃO!\n\nEsse menu é apenas decorativo. Nenhuma função foi implementada aqui ainda.");
     }
+
+  // Bônus Minecraft (BLOQUEIO)
+    window.abrirAppMinecraft = function() {
+        alert("✋ Opa! Foco na missão. Agora não é hora de jogar Minecraft!");
+    }
+
+    // Função do Espelho (MEME)
+    // --- FUNÇÃO DO ESPELHO (LIXEIRA) ---
+window.abrirEspelho = function() {
+    const espelho = document.getElementById('mirror-overlay');
+    if(espelho) {
+        espelho.style.display = 'flex';
+        // Toca um som de erro se quiser (opcional)
+        // const audio = new Audio('../assets/audio/erro.mp3');
+        // audio.play(); 
+    }
+}
+
+window.fecharEspelho = function() {
+    const espelho = document.getElementById('mirror-overlay');
+    if(espelho) {
+        espelho.style.display = 'none';
+    }
+}
     
 };

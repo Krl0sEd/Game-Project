@@ -1,43 +1,120 @@
+/* =========================================
+   ARQUIVO: assets/css/index.css
+   TEMA: Login Retrô (Estilo Windows XP/7)
+   ========================================= */
+
+/* Reseta as margens padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #3a7bd5, #3a6073);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
+    font-family: 'Pixelify Sans', sans-serif; /* Fonte retrô */
+    /* Fundo Azul Clássico com degradê radial */
+    background-color: #004E98; 
+    background-image: radial-gradient(circle, #005bb5 0%, #003366 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+}
 
-        .login-box {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 30px;
-            border-radius: 12px;
-            -webkit-backdrop-filter: blur(5px); /* Safari support */
-            backdrop-filter: blur(5px);
-            text-align: center;
-            width: 300px;
-        }
+/* Container principal (substitui o antigo .login-box) */
+.login-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    animation: fadeIn 1.5s ease-in-out;
+}
 
-        input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            margin-top: 10px;
-        }
+/* O Avatar do usuário (Quadrado com borda arredondada) */
+.user-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background: #fff;
+    padding: 2px;
+    object-fit: cover; /* Garante que a imagem não estique */
+}
 
-        button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            background: #0044ff;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
+/* Título do Sistema */
+.os-title {
+    font-size: 2rem;
+    font-weight: 400;
+    text-shadow: 2px 2px 0px #000; /* Sombra dura para efeito retro */
+    margin-bottom: 10px;
+}
 
-        button:hover {
-            background: #002fb3;
-        }
+/* Grupo que junta o Input e o Botão */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 2px solid #003366; /* Borda azul escura */
+}
+
+input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-family: 'Pixelify Sans', sans-serif;
+    width: 200px;
+    color: #333;
+}
+
+button {
+    background: #00aa00; /* Verde estilo botão "Ir" */
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover {
+    background: #00cc00;
+}
+
+button:active {
+    transform: scale(0.95); /* Efeito de clique */
+}
+
+/* Rodapé decorativo */
+.footer-options {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    cursor: not-allowed; /* Mostra o ícone de proibido ao passar o mouse */
+}
+
+.footer-options span:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

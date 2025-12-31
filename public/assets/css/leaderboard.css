@@ -1,0 +1,174 @@
+/* 1. Reset Básico e Fundo da Tela */
+body {
+    background-color: #008080; /* Aquele verde-azulado clássico do Windows */
+    font-family: 'Pixelify Sans', sans-serif; /* Sua fonte pixelada */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Evita barras de rolagem na tela inteira */
+}
+
+/* 2. A Janela Flutuante (Container Principal) */
+.janela-leaderboard {
+    width: 90%;
+    max-width: 600px; /* Não deixa ficar gigante em telas grandes */
+    background-color: #c0c0c0; /* Cinza Windows */
+    
+    /* Borda 3D Clássica (Outset) */
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5); /* Sombra projetada no fundo */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Barra de Título (Onde fica o nome.exe) */
+.barra-titulo {
+    background: linear-gradient(90deg, #000080, #1084d0); /* Degradê azul */
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.titulo-texto {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre ícone e texto */
+}
+
+/* 4. Botões da Janela (_ □ X) */
+.botoes-janela {
+    display: flex;
+    gap: 2px;
+}
+
+.botoes-janela button {
+    width: 20px;
+    height: 20px;
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    font-family: Arial, sans-serif; /* Fonte simples para os símbolos */
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.botoes-janela button:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    padding-top: 2px; /* Efeito de afundar */
+    padding-left: 2px;
+}
+
+/* 5. Conteúdo Interno */
+.conteudo-interno {
+    padding: 15px;
+}
+
+.cabecalho-ranking {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.cabecalho-ranking h2 {
+    margin: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.cabecalho-ranking p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #444;
+}
+
+/* 6. A Tabela (Sua parte original, ajustada) */
+.tabela-container {
+    background: white;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080; /* Borda Inset (afundada) */
+    padding: 2px;
+    max-height: 300px;
+    overflow-y: auto; /* Rolagem se a lista for grande */
+    margin-bottom: 15px;
+}
+
+.tabela-retro {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-retro th {
+    background-color: #c0c0c0;
+    border: 1px solid #808080;
+    border-bottom: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+    box-shadow: inset 1px 1px #fff; /* Brilho interno no botão do cabeçalho */
+}
+
+.tabela-retro td {
+    border: 1px dotted #808080; /* Pontilhado fica bem retrô */
+    padding: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.tabela-retro tr:nth-child(even) {
+    background-color: #e0f0ff; /* Azul bem clarinho nas listras */
+}
+
+.tabela-retro tr:hover {
+    background-color: #000080;
+    color: white; /* Seleção estilo Windows */
+    cursor: default;
+}
+
+/* 7. Rodapé com Botões de Ação */
+.rodape-acoes {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px groove #fff;
+    padding-top: 10px;
+}
+
+.btn-retro {
+    background-color: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    padding: 5px 15px;
+    font-family: 'Pixelify Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.btn-retro:active {
+    border-color: #000000 #ffffff #ffffff #000000;
+    transform: translate(1px, 1px); /* Move levemente ao clicar */
+}

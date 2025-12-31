@@ -30,9 +30,9 @@
             <div> Meu Computador </div>
         </div>
         
-        <div class="desktop-icon">
+        <div class="desktop-icon" onclick="abrirEspelho()">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixeira">
-            <div> Lixo </div>
+            <div> Lixeira </div>
         </div>
         
         <div class="desktop-icon">
@@ -167,7 +167,7 @@
              <span>CMD</span>
         </div>
         
-        <div class="menu-item">
+        <div class="menu-item" onclick="abrirConfiguracoes()">
             <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png" alt="Icon">
             <span>Configurações</span>
         </div>
@@ -198,14 +198,67 @@
     <source src="../assets/audio/minimizar.wav" type="audio/mpeg">
 </audio>
 
-<div id="meme-overlay" onclick="fecharSistemaMemes()" 
-     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 99999; 
-            justify-content: center; align-items: center; cursor: pointer;">
+    <!--- Espelho para trolagem --->
+    <div id="meme-overlay" onclick="fecharSistemaMemes()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center; cursor: pointer;">
+
+    <img src="https://criancaperpetua.wordpress.com/wp-content/uploads/2014/02/pc-quebrado.jpg" alt="Setup Antigo" style="max-width: 85%; max-height: 85%; border: 4px solid #c0c0c0; box-shadow: 0 0 30px black;">
+
+    <p style="color: #ccc; margin-top: 10px;">(Clique para fechar)</p>
+
+</div>
+
+    <!-- Espelho para trolagem -->
+     <div id="mirror-overlay" onclick="fecharEspelho()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 99999; justify-content: center; align-items: center; cursor: pointer; flex-direction: column;">
     
-    <img src="https://criancaperpetua.wordpress.com/wp-content/uploads/2014/02/pc-quebrado.jpg" 
-         alt="Setup Antigo" 
-         style="max-width: 85%; max-height: 85%; border: 4px solid #c0c0c0; box-shadow: 0 0 30px black;">
+    <h1 style="color: white; font-family: 'Pixelify Sans'; margin-bottom: 20px;">Você encontrou o lixo</h1>
+    
+    <img src="https://images.tcdn.com.br/img/img_prod/445337/espelho_poliresina_dourado_178x122cm_25807_1_12f2100479c60c672f7ca311b5719972_20250804164321.jpg" alt="Espelho" style="max-width: 400px; height: auto;">
+
+    <p style="color: #ccc; margin-top: 10px;">(Clique para fechar)</p>
+    
+</div>
+
+    <!-- Janela de Propriedades do Sistema -->
+
+<div id="janela-specs" class="janela-flutuante" style="display: none;">
+    <div class="barra-titulo">
+        <span>Propriedades do Sistema</span>
+        <button class="btn-fechar" onclick="fecharConfiguracoes()">X</button>
+    </div>
+    
+    <div class="conteudo-janela">
+
+        <div class="icone-sistema">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="PC" width="48">
+        </div>
+        
+        <div class="info-texto">
+
+            <h3>Sistema Operacional Mágico</h3>
+            <p>Versão Alpha 0.0.1</p>
+            <hr>
+            <p><strong>Computador:</strong></p>
+            
+            <ul>
+                <li><strong>Processador:</strong> Intel 8080 (Relíquia 1974)</li>
+                <li><strong>Memória RAM:</strong> 2GB DDR CL100 (Lentidão Premium)</li>
+                <li><strong>Placa de Vídeo:</strong> S/N (Renderiza na força do pensamento)</li>
+                <li><strong>Armazenamento:</strong>
+                    <ul>
+                        <li>HDD: 1MB (Quase cheio)</li>
+                        <li>Disquete: 10MB (Edição Especial)</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    
+    <div class="rodape-janela">
+        <button onclick="fecharConfiguracoes()">OK</button>
+        <button onclick="fecharConfiguracoes()">Cancelar</button>
+    </div>
 </div>
 
     <script src="../assets/js/game.js"></script>
