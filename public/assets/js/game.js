@@ -1,95 +1,121 @@
-// =================================================
-// CONFIGURAÇÃO DAS MISSÕES E PONTUAÇÃO
-// =================================================
+/* =================================================
+   ARQUIVO: assets/js/game.js
+   DESCRIÇÃO: Lógica do "Dia de Trabalho" (7 Missões)
+   ================================================= */
+
+// 1. CONFIGURAÇÃO DAS MISSÕES
+// Aqui definimos a ordem exata que o jogador precisa seguir.
 const missoes = [
     { 
         id: 0, 
-        texto: '01) Abra o "Meu Computador"', 
+        texto: '01) Abra o ícone "Meu Computador"', 
         acaoNecessaria: 'abrir_pc' 
     },
     { 
         id: 1, 
-        texto: '02) Acesse a pasta "Ferramentas"', 
-        acaoNecessaria: 'abrir_pasta_ferramentas' 
+        texto: '02) Vá em Documentos e leia o "contrato.txt"', 
+        acaoNecessaria: 'ler_contrato' 
     },
     { 
         id: 2, 
-        texto: '03) Tente rodar o "Doom.exe"', 
-        acaoNecessaria: 'abrir_doom' 
+        texto: '03) Vá em Ferramentas e abra a Calculadora', 
+        acaoNecessaria: 'abrir_calc' 
+    },
+    { 
+        id: 3, 
+        texto: '04) Ainda em Ferramentas, abra o Email Corp.', 
+        acaoNecessaria: 'abrir_app_email' 
+    },
+    { 
+        id: 4, 
+        texto: '05) Envie o email para o Chefe', 
+        acaoNecessaria: 'enviar_email_chefe' 
+    },
+    { 
+        id: 5, 
+        texto: '06) Volte para Documentos e abra o PPT "Bem-vindo"', 
+        acaoNecessaria: 'abrir_ppt' 
+    },
+    { 
+        id: 6, 
+        texto: '07) Encerre o dia: Desligue pelo Menu Iniciar', 
+        acaoNecessaria: 'desligar_pc' 
     }
-    // Removi a missão de "Parabéns" da lista, pois vamos redirecionar antes
 ];
 
+// Variáveis de Estado
 let missaoAtual = 0; 
 let pontuacaoTotal = 0;
-let tempoInicioMissao = Date.now(); // Marca a hora que o jogo começou
+let tempoInicioMissao = Date.now();
 
 // =================================================
-// FUNÇÃO DE CÁLCULO DE PONTOS (A Lógica Time Attack)
+// 2. SISTEMA DE PONTUAÇÃO (Time Attack)
 // =================================================
+
+ // FUNÇÃO PARA SALVAR NO LOCALSTORAGE
+    function salvarProgresso() {
+        // Pega o nome que já estava salvo (ou define como Anonimo)
+        const nomeJogador = localStorage.getItem('playerName') || "Anonimo";
+
+        // Cria o objeto com os dados atuais
+        const dadosDoJogo = {
+            nickname: nomeJogador,
+            pontuacao: pontuacaoTotal,
+            missaoIndex: missaoAtual // Salva o índice da missão (0, 1, 2...)
+        };
+
+        // Transforma em texto e salva no navegador
+        localStorage.setItem('compuZone_SaveData', JSON.stringify(dadosDoJogo));
+        
+        console.log("Jogo salvo automaticamente:", dadosDoJogo);
+    }
+
 function calcularPontosDaRodada() {
     const tempoFinal = Date.now();
-    const tempoGastoSegundos = (tempoFinal - tempoInicioMissao) / 1000; // Converte ms para segundos
+    const tempoGasto = (tempoFinal - tempoInicioMissao) / 1000;
     
-    // FÓRMULA: Cada missão vale 1000 pontos.
-    // O jogador perde 20 pontos por cada segundo que demorar.
-    // Mínimo de 50 pontos para não frustrar quem é lento.
-    let pontosGanhos = 1000 - (tempoGastoSegundos * 20);
+    // Começa valendo 1000, perde 20 pontos por segundo
+    let pontos = 1000 - (tempoGasto * 20);
+    if (pontos < 50) pontos = 50; // Mínimo de 50 pontos
     
-    if (pontosGanhos < 50) pontosGanhos = 50; // Piso mínimo
-    
-    // Arredonda para não ficar número quebrado
-    pontosGanhos = Math.floor(pontosGanhos);
-
-    console.log(`Levou ${tempoGastoSegundos.toFixed(2)}s. Ganhou: ${pontosGanhos} pts.`);
-    return pontosGanhos;
+    return Math.floor(pontos);
 }
 
-// =================================================
-// ATUALIZAÇÃO DE TELA (Missão e Score)
-// =================================================
 function atualizarHUD() {
-    const elementoTexto = document.getElementById("mission-text");
-    const elementoScore = document.getElementById("score-val");
-    const caixaMissao = document.getElementById("mission-box");
+    const elTexto = document.getElementById("mission-text");
+    const elScore = document.getElementById("score-val");
+    const elBox = document.getElementById("mission-box");
     
-    // Atualiza o Score na tela
-    if(elementoScore) elementoScore.innerText = pontuacaoTotal;
-
-    // Efeito visual de acerto
-    if(caixaMissao) {
-        caixaMissao.style.backgroundColor = "#00aa00"; 
-        setTimeout(() => { caixaMissao.style.backgroundColor = ""; }, 300);
+    // Atualiza Placar
+    if(elScore) elScore.innerText = pontuacaoTotal;
+    
+    // Efeito Visual na Caixa
+    if(elBox) {
+        elBox.style.backgroundColor = "#00aa00"; 
+        setTimeout(() => { elBox.style.backgroundColor = ""; }, 300);
     }
 
-    // Atualiza Texto da Missão
-    if (elementoTexto && missaoAtual < missoes.length) {
-        elementoTexto.innerText = missoes[missaoAtual].texto;
-        elementoTexto.style.color = "#00ff00";
+    // Atualiza Texto
+    if (elTexto && missaoAtual < missoes.length) {
+        elTexto.innerText = missoes[missaoAtual].texto;
+        elTexto.style.color = "#00ff00";
     }
 }
 
-// =================================================
-// CHECAGEM DE MISSÃO (O Coração do Jogo)
-// =================================================
-function checarMissao(acaoDoJogador) {
-    // Se já acabou as missões, ignora
+function checarMissao(acao) {
+    // Se o jogo acabou, ignora
     if (missaoAtual >= missoes.length) return;
 
-    // Verifica se acertou
-    if (acaoDoJogador === missoes[missaoAtual].acaoNecessaria) {
+    // Se a ação for a correta para a missão atual
+    if (acao === missoes[missaoAtual].acaoNecessaria) {
         
-        // 1. CALCULA E SOMA PONTOS
-        const pontos = calcularPontosDaRodada();
-        pontuacaoTotal += pontos;
-        
-        // 2. RESETA O RELÓGIO PARA A PRÓXIMA MISSÃO
-        tempoInicioMissao = Date.now();
-
-        // 3. AVANÇA MISSÃO
+        pontuacaoTotal += calcularPontosDaRodada();
+        tempoInicioMissao = Date.now(); // Reseta relógio
         missaoAtual++; 
 
-        // 4. VERIFICA FIM DE JOGO
+        // SALVAR O PROGRESSO AQUI ---
+        salvarProgresso();
+
         if (missaoAtual >= missoes.length) {
             finalizarJogo();
         } else {
@@ -98,63 +124,59 @@ function checarMissao(acaoDoJogador) {
     }
 }
 
-// =================================================
-// FIM DE JOGO E REDIRECIONAMENTO
-// =================================================
 function finalizarJogo() {
-    alert(`PARABÉNS! Jogo Hackeado.\nSua Pontuação Final: ${pontuacaoTotal}`);
-
-    // 1. Recupera o nome do jogador
-    const nomeJogador = localStorage.getItem('playerName') || "Anonimo";
-
-    // 2. Cria o objeto do recorde atual
-    const novoRecorde = {
-        nome: nomeJogador,
-        pontos: pontuacaoTotal,
-        data: new Date().toLocaleDateString()
-    };
-
-    // 3. Recupera o Leaderboard antigo (ou cria um array vazio se não existir)
-    let leaderboard = JSON.parse(localStorage.getItem('gameLeaderboard')) || [];
-
-    // 4. Adiciona o novo recorde e Salva de volta
-    leaderboard.push(novoRecorde);
+    alert(`PARABÉNS! Treinamento Concluído.\nSua Pontuação Final: ${pontuacaoTotal}`);
     
-    // (Opcional: Ordenar do maior para o menor antes de salvar)
-    leaderboard.sort((a, b) => b.pontos - a.pontos);
-
+    // Salva recorde
+    const nome = localStorage.getItem('playerName') || "Anonimo";
+    const novoRecorde = { nome: nome, pontos: pontuacaoTotal, data: new Date().toLocaleDateString() };
+    
+    let leaderboard = JSON.parse(localStorage.getItem('gameLeaderboard')) || [];
+    leaderboard.push(novoRecorde);
+    leaderboard.sort((a, b) => b.pontos - a.pontos); // Ordena do maior pro menor
     localStorage.setItem('gameLeaderboard', JSON.stringify(leaderboard));
 
-    // 5. REDIRECIONA PARA A TELA DE RANKING
+    // Redireciona
     window.location.href = "leaderboard.html";
 }
 
-
 // =================================================
-// INICIALIZAÇÃO (Window OnLoad)
+// 3. INICIALIZAÇÃO (Ao carregar a página)
 // =================================================
 window.onload = function() {
-    
-    // Garante que o relógio comece AGORA
     tempoInicioMissao = Date.now();
 
-    // -- RECUPERAR NOME --
+    // CARREGAR JOGO SALVO
+    const saveAntigo = localStorage.getItem('compuZone_SaveData');
+    if (saveAntigo) {
+        try {
+            const dados = JSON.parse(saveAntigo);
+            missaoAtual = dados.missaoIndex;
+            pontuacaoTotal = dados.pontuacao;
+            
+            // Se o jogo já tinha acabado, reseta
+            if(missaoAtual >= missoes.length) missaoAtual = 0;
+
+            console.log("Progresso recuperado com sucesso!");
+            atualizarHUD(); // Atualiza o texto da missão na tela
+        } catch (e) {
+            console.log("Erro ao carregar save, começando do zero.");
+        }
+    }
+    
+    // Configura nome na janela
     const nomeSalvo = localStorage.getItem('playerName');
     const tituloJanela = document.querySelector('.title-bar span');
-    if (nomeSalvo && tituloJanela) {
-        tituloJanela.innerText = `Program Manager - ${nomeSalvo}`;
-    }
-
-    // -- SISTEMA DE MÚSICA --
+    if (nomeSalvo && tituloJanela) tituloJanela.innerText = `Explorer - ${nomeSalvo}`;
+    
+    // Configura Áudio
     const audio = document.getElementById('musica-fundo');
-    if (audio) {
-        audio.volume = 0.1; 
-        audio.play().catch(() => {
-            document.body.addEventListener('click', () => audio.play(), { once: true });
-        });
+    if(audio) {
+        audio.volume = 0.1;
+        audio.play().catch(() => document.body.addEventListener('click', () => audio.play(), { once: true }));
     }
 
-    // -- ARRASTAR JANELA (Drag logic) --
+    // --- ARRASTAR JANELA (Drag & Drop) ---
     const janela = document.getElementById("program-manager");
     const barraTitulo = janela.querySelector(".title-bar");
     let isDragging = false, startX, startY, initialLeft, initialTop;
@@ -176,26 +198,7 @@ window.onload = function() {
     });
     window.addEventListener("mouseup", () => { isDragging = false; document.body.style.cursor = "default"; });
 
-    // -- MENU INICIAR --
-    const btnMenu = document.querySelector('.start-btn');
-    const menuIniciar = document.getElementById('start-menu');
-
-    btnMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menuIniciar.classList.toggle('aberto');
-        btnMenu.style.borderStyle = menuIniciar.classList.contains('aberto') ? "inset" : "outset";
-        btnMenu.style.backgroundColor = menuIniciar.classList.contains('aberto') ? "#ddd" : "";
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!menuIniciar.contains(e.target) && menuIniciar.classList.contains('aberto')) {
-            menuIniciar.classList.remove('aberto');
-            btnMenu.style.borderStyle = "outset";
-            btnMenu.style.backgroundColor = "";
-        }
-    });
-
-    // -- RELÓGIO --
+    // --- RELÓGIO ---
     function atualizarRelogio() {
         const agora = new Date();
         const divRelogio = document.querySelector('.clock');
@@ -205,34 +208,127 @@ window.onload = function() {
     atualizarRelogio();
 
     // =================================================
-    // FUNÇÕES GLOBAIS (Ações do Jogo)
+    // 4. FUNÇÕES GLOBAIS (Conectadas ao HTML)
     // =================================================
     
-    window.minimizarJanela = function() {
-        const sfx = document.getElementById('som-minimizar');
-        if (sfx) sfx.play().catch(e => {});
-        document.getElementById('program-manager').style.display = 'none';
+    // -- Lógica de Telas (Views) --
+    function mostrarTela(idTela) {
+        // Esconde todas
+        document.getElementById('view-main').style.display = 'none';
+        document.getElementById('view-docs').style.display = 'none';
+        document.getElementById('view-tools').style.display = 'none';
+        // Mostra a escolhida
+        document.getElementById(idTela).style.display = 'flex';
     }
 
+    // ABRIR O COMPUTADOR (Início)
     window.abrirJanela = function() {
         const janela = document.getElementById('program-manager');
         janela.style.display = 'flex';
+        // Reseta posição e tela
         janela.style.top = '15%'; janela.style.left = '20%';
+        mostrarTela('view-main');
+        
         checarMissao('abrir_pc');
     }
 
-    window.fecharJanela = function() {
-         document.getElementById('program-manager').style.display = 'none';
+    // NAVEGAÇÃO ENTRE PASTAS
+    window.abrirPastaDocumentos = function() {
+        mostrarTela('view-docs');
     }
 
-    window.abrirPastaGames = function() {
-        checarMissao('abrir_pasta_ferramentas');
-        if (missaoAtual < 2) alert("Siga a ordem das missões!");
+    window.abrirPastaFerramentas = function() {
+        mostrarTela('view-tools');
+    }
+
+    window.voltarParaMain = function() {
+        mostrarTela('view-main');
+    }
+
+    // AÇÕES DE ARQUIVOS (Missões)
+    
+    window.abrirArquivoTexto = function() {
+        alert("📄 CONTRATO DE TRABALHO\n\nCláusula 1: O funcionário deve aprender a usar o mouse.\nCláusula 2: Proibido jogar Minecraft no expediente.\n\nAssinado: A Gerência.");
+        checarMissao('ler_contrato');
+    }
+
+    window.abrirCalculadora = function() {
+        alert("🧮 Calculadora: 1 + 1 = 2 (Sistema funcionando!)");
+        checarMissao('abrir_calc');
+    }
+
+    window.abrirAppEmail = function() {
+        document.getElementById('email-window').style.display = 'flex';
+        checarMissao('abrir_app_email');
+    }
+
+    window.enviarEmailReal = function() {
+        alert("✅ E-mail enviado com sucesso para chefe@empresa.com!");
+        document.getElementById('email-window').style.display = 'none';
+        checarMissao('enviar_email_chefe');
+    }
+
+    window.abrirApresentacao = function() {
+        // Só deixa abrir o PPT se já tiver mandado o email (Missão 5 completa)
+        if(missaoAtual < 5) {
+            alert("⚠️ Termine as tarefas anteriores (Email) antes de ver a apresentação!");
+            return;
+        }
+        alert("📽️ SLIDE 1: Bem-vindo à Compu-Zone!\nSLIDE 2: Aqui o futuro é retrô.");
+        checarMissao('abrir_ppt');
+    }
+
+    // BOTÃO DESLIGAR (Fim)
+    window.desligarReal = function() {
+        checarMissao('desligar_pc');
+    }
+
+    // -- Menu Iniciar (Abrir/Fechar) --
+    const btnMenu = document.querySelector('.start-btn');
+    const menuIniciar = document.getElementById('start-menu');
+    
+    btnMenu.onclick = (e) => { 
+        e.stopPropagation(); 
+        menuIniciar.classList.toggle('aberto'); 
     }
     
-    window.abrirDoom = function() {
-        // Essa é a ultima ação. Ao chamar checarMissao aqui, 
-        // ele vai ver que acabou e chamar finalizarJogo()
-        checarMissao('abrir_doom'); 
+    document.onclick = (e) => { 
+        if (!menuIniciar.contains(e.target) && menuIniciar.classList.contains('aberto')) {
+            menuIniciar.classList.remove('aberto'); 
+        }
     }
+
+    // --- CONTROLES DE JANELA (COM SOM AGORA!) ---
+    window.fecharJanela = function() { document.getElementById('program-manager').style.display = 'none'; }
+    
+    // AQUI ESTÁ A CORREÇÃO DO SOM:
+    window.minimizarJanela = function() { 
+        document.getElementById('program-manager').style.display = 'none';
+        
+        // Toca o som se ele existir
+        const som = document.getElementById('som-minimizar');
+        if(som) som.play().catch(e => console.log("Erro som:", e));
+    }
+
+    window.fecharEmail = function() { document.getElementById('email-window').style.display = 'none'; }
+
+    // Bônus Minecraft (BLOQUEIO)
+    window.abrirAppMinecraft = function() {
+        alert("✋ Opa! Foco na missão. Agora não é hora de jogar Minecraft!");
+    }
+
+    window.acaoDesligar = function() {
+        // 1. O alerta aparece primeiro (o código pausa aqui até dar OK)
+        alert('Faz de conta que desligou...');
+
+        // 2. Quando der OK, ele verifica se está na última missão (id 6)
+        if (missaoAtual === 6) {
+            // Se tiver acabado, finaliza e manda pro leaderboard
+            checarMissao('desligar_pc');
+        } else {
+            // Se tentar sair antes da hora
+            alert("⚠️ Ei! Você ainda tem tarefas pendentes. Termine o dia primeiro!");
+        }
+    }
+    
 };

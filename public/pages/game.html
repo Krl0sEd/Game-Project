@@ -3,7 +3,6 @@
 <html lang="pt-br">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Compu-Zone OS </title>
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="../assets/css/game.css">
     <link rel="stylesheet" href="../assets/css/responsividade.css">
     <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
-
 </head>
 
 <body>
@@ -25,32 +23,34 @@
     <p id="mission-text"> 01) Abra o "Meu Computador"</p>
 </div>
 
-
     <div id="desktop">
+
         <div class="desktop-icon" onclick="abrirJanela()">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="PC">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="Meu Computador">
             <div> Meu Computador </div>
         </div>
         
         <div class="desktop-icon">
-            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixo">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixeira">
             <div> Lixeira </div>
         </div>
         
         <div class="desktop-icon">
-            <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-4.png" alt="Floppy">
+            <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-4.png" alt="System32 (C:)">
             <div> System32 (C:)</div>
         </div>
 
         <div class="desktop-icon">
-            <img src="https://omunicipio.com.br/wp-content/uploads/static/fotos/noticias/1428/Senac2-1280x720.jpg" alt="Senac">
+            <img src="https://omunicipio.com.br/wp-content/uploads/static/fotos/noticias/1428/Senac2-1280x720.jpg" alt="Senac (D:)">
             <div> Senac (D:) </div>
         </div>
+
     </div>
 
-    <div class="window" id="program-manager">
+    <div class="window" id="program-manager" style="display: none;">
+
         <div class="title-bar">
-            <span>Program Manager</span>
+            <span>Explorador de Taregas</span>
             <div class="window-controls">
                 <div class="btn-control" onclick="minimizarJanela()">_</div>
                 <div class="btn-control" onclick="fecharJanela()" style="background:#cc0000; color:white;">X</div>
@@ -64,50 +64,105 @@
             <span class="menu-item">Help</span>
         </div>
 
+        <!-- Conteúdo da janela -->
         <div class="window-content">
-            <div class="folder-item" onclick="abrirPastaGames()">
-                <img class="folder-icon"src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Folder">
-                <span>Games</span>
+            
+            <div id="view-main" style="display: flex; flex-wrap: wrap;">
+                <div class="folder-item" onclick="abrirPastaDocumentos()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" style="filter: hue-rotate(160deg);">
+                    <span>Documentos</span>
+                </div>
+                <div class="folder-item" onclick="abrirPastaFerramentas()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
+                    <span>Ferramentas</span>
+                </div>
+                <div class="folder-item">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
+                    <span>Sistema</span>
+                </div>
             </div>
 
-            <div class="folder-item">
-                <img class="folder-icon"src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Folder" style="filter: hue-rotate(160deg);">
-                <span> Documentos </span>
+            <div id="view-docs" style="display: none; flex-wrap: wrap;">
+                <div class="folder-item" onclick="voltarParaMain()">
+                    <img class="folder-icon" src="https://static.thenounproject.com/png/1976609-200.png">
+                    <span>.. (Voltar)</span>
+                </div>
+                <div class="folder-item" onclick="abrirArquivoTexto()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
+                    <span>contrato.txt</span>
+                </div>
+                <div class="folder-item" onclick="abrirApresentacao()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/template_empty-2.png">
+                    <span>Bem-vindo.ppt</span>
+                </div>
             </div>
 
-            <div class="folder-item">
-                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="Folder">
-                <span> Sistema </span>
-            </div>
+            <div id="view-tools" style="display: none; flex-wrap: wrap;">
 
-            <div class="folder-item">
-                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png" alt="Folder">
-                <span> Ferramentas </span>
-            </div>
+                <div class="folder-item" onclick="voltarParaMain()">
+                    <img class="folder-icon" src="https://static.thenounproject.com/png/1976609-200.png">
+                    <span>.. (Voltar)</span>
+                </div>
 
-            <div class="folder-item" onclick="abrirDoom()">
-                <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/game_freecell-1.png" style="filter: drop-shadow(2px 2px 0 red);" alt="Folder">
-                <span>Doom.exe</span>
+                <div class="folder-item" onclick="abrirCalculadora()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/calculator-2.png">
+                    <span>Calculadora</span>
+                </div>
+
+                <div class="folder-item" onclick="abrirAppEmail()">
+                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png">
+                    <span>Email Corp.</span>
+                </div>
+
+                <div class="folder-item" onclick="abrirAppMinecraft()">
+                    <img class="folder-icon" src="https://img.icons8.com/color/48/minecraft-logo.png" alt="Minecraft"">
+                    <span>Minecraft</span>
+                </div>
+
             </div>
 
         </div>
-
     </div>
 
+    <div class="window" id="email-window" style="display: none; width: 400px; height: 350px; top: 20%; left: 35%; z-index: 200;">
+        <div class="title-bar" style="background: navy;">
+            <span>Nova Mensagem</span>
+            <div class="window-controls">
+                <div class="btn-control" onclick="fecharEmail()">X</div>
+            </div>
+        </div>
+        <div class="window-content" style="flex-direction: column; align-items: flex-start; padding: 15px; background: #c0c0c0;">
+            <div style="margin-bottom: 10px; width: 100%;">
+                <label style="color: black; font-weight: bold;">Para:</label>
+                <input type="text" value="chefe@empresa.com" disabled style="width: 95%;">
+            </div>
+            <div style="margin-bottom: 10px; width: 100%;">
+                <label style="color: black; font-weight: bold;">Assunto:</label>
+                <input type="text" placeholder="Digite o assunto..." style="width: 95%;">
+            </div>
+            <textarea placeholder="Escreva sua mensagem aqui..." style="width: 95%; height: 120px; resize: none;"></textarea>
+            <button onclick="enviarEmailReal()" style="margin-top: 15px; padding: 5px 20px; cursor: pointer; font-weight: bold; align-self: flex-end;">✉️ ENVIAR</button>
+        </div>
+    </div>
+
+    <!-- Menu Iniciar -->
     <div id="start-menu" class="start-menu">
+
     <div class="sidebar-strip">
         <span class="os-version"> COMPU-ZONE 95 </span>
     </div>
     
     <div class="menu-list">
-        <div class="menu-item">
+
+        <div class="menu-item" onclick="abrirJanela()">
             <img src="https://static.vecteezy.com/system/resources/previews/032/510/691/non_2x/abstract-80s-interface-retro-computer-black-screen-with-old-programs-dark-ui-program-glitch-and-hack-or-virtual-virus-attack-illustration-vector.jpg" alt="Icon">
             <span>Programas</span>
-            <div class="arrow">▶</div> </div>
+            <div class="arrow">▶</div> 
+        </div>
         
-        <div class="menu-item" onclick="abrirJanela()">
-            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Icon">
-            <span> CMD </span>
+        <div class="menu-item" onclick="alert('Função do CMD em construção...')">
+             <img src="https://img.icons8.com/color/48/console.png" alt="CMD Icon">
+             <span>CMD</span>
         </div>
         
         <div class="menu-item">
@@ -115,11 +170,13 @@
             <span>Configurações</span>
         </div>
         
-        <div class="divider"></div> <div class="menu-item" onclick="alert('Faz de conta que desligou...')">
+        <div class="menu-item" onclick="acaoDesligar()">
             <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" alt="Icon">
             <span>Desligar...</span>
         </div>
+        
     </div>
+
 </div>
 
     <div id="taskbar">
