@@ -174,22 +174,6 @@ function checarMissao(acao) {
     }
 }
 
-function finalizarJogo() {
-    alert(`PARABÉNS! Treinamento Concluído.\nSua Pontuação Final: ${pontuacaoTotal}`);
-    
-    // Salva recorde
-    const nome = localStorage.getItem('playerName') || "Anonimo";
-    const novoRecorde = { nome: nome, pontos: pontuacaoTotal, data: new Date().toLocaleDateString() };
-    
-    let leaderboard = JSON.parse(localStorage.getItem('gameLeaderboard')) || [];
-    leaderboard.push(novoRecorde);
-    leaderboard.sort((a, b) => b.pontos - a.pontos); // Ordena do maior pro menor
-    localStorage.setItem('gameLeaderboard', JSON.stringify(leaderboard));
-
-    // Redireciona
-    window.location.href = "leaderboard.html";
-}
-
 // =================================================
 // 3. INICIALIZAÇÃO (Ao carregar a página)
 // =================================================
