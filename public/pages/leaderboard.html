@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Office Simulator - Ranking Corporativo</title>
+    
     <link rel="stylesheet" href="../assets/css/leaderboard.css">
     <link rel="stylesheet" href="../assets/css/responsividade.css">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://cdnb.artstation.com/p/assets/images/images/007/413/479/large/althea-krebelj-pixel-computer.jpg?1505969564">
+
 </head>
 <body>
 
@@ -43,29 +45,39 @@
                         </tr>
                     </thead>
                     <tbody id="corpo-tabela">
-                        <tr>
-                            <td>1</td>
-                            <td>Chefe Oculto</td>
-                            <td>999999</td>
-                            <td>Ontem</td>
-                        </tr>
-                        <tr>
-                            <td>-</td>
-                            <td>Carregando...</td>
-                            <td>---</td>
-                            <td>---</td>
-                        </tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
             <div class="rodape-acoes">
                 <button class="btn-retro" onclick="window.location.href='index.html'">
-                    <img src="https://static.vecteezy.com/system/resources/previews/026/551/104/non_2x/leftwards-arrow-pixelated-ui-icon-pressing-left-setting-menu-selection-mode-editable-8bit-graphic-element-outline-isolated-user-interface-image-for-web-mobile-app-retro-style-vector.jpg" width="16" style="mix-blend-mode: multiply;"alt="icon">
-                    Voltar ao Menu
+                    <img src="https://static.vecteezy.com/system/resources/previews/026/551/104/non_2x/leftwards-arrow-pixelated-ui-icon-pressing-left-setting-menu-selection-mode-editable-8bit-graphic-element-outline-isolated-user-interface-image-for-web-mobile-app-retro-style-vector.jpg" width="16" style="mix-blend-mode: multiply;" alt="icon">
+                    Voltar ao Trabalho
                 </button>
+                
                 <button class="btn-retro" id="btn-limpar">Limpar Histórico</button>
             </div>
+        </div>
+    </div>
+
+    <div id="janela-senha" class="janela-senha-rh" style="display: none;">
+        <div class="barra-titulo">
+            <span style="font-weight: bold; font-size: 12px; font-family: 'Tahoma';">⛔ ACESSO RESTRITO RH</span>
+            <button id="btn-fechar-senha" style="width: 20px; height: 20px; line-height: 10px;">X</button>
+        </div>
+        
+        <div style="padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+            <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" width="32" style="margin-bottom: 10px;">
+            <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold; color: black;">DIGITE A SENHA DE ADMIN:</p>
+            
+            <input type="password" id="input-senha-rh" style="width: 90%; padding: 5px; border: 2px inset #fff;">
+            
+            <p id="msg-erro-rh" style="color: red; font-size: 12px; display: none; margin-top: 5px; font-weight: bold; background: yellow;">SENHA INCORRETA!</p>
+        </div>
+        
+        <div style="padding: 10px; display: flex; justify-content: center; gap: 10px; background: #c0c0c0;">
+            <button id="btn-confirmar-apagar" style="padding: 5px 15px; font-weight: bold; color: red;">🗑️ APAGAR TUDO</button>
+            <button id="btn-cancelar-apagar" style="padding: 5px 15px;">Cancelar</button>
         </div>
     </div>
 

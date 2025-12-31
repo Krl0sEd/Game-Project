@@ -1,0 +1,138 @@
+/* ============================================================
+   RESPONSIVIDADE GERAL - OFFICE SIMULATOR
+   Aplica mudanças quando a tela for menor que 768px (Celulares e Tablets)
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    /* --- 1. AJUSTES GERAIS --- */
+    body {
+        /* Garante que o fundo cubra tudo e evita rolagens indesejadas */
+        background-size: cover;
+        overflow: hidden; 
+    }
+
+    /* Aumenta levemente a fonte base para leitura em telas pequenas */
+    * {
+        box-sizing: border-box;
+    }
+
+    /* --- 2. JANELAS FLUTUANTES (Ranking, Specs, Senha) --- */
+    /* Força as janelas a ocuparem a tela do celular */
+    .janela-leaderboard, 
+    .janela-flutuante,
+    .janela-senha-rh, 
+    #program-manager, 
+    #email-window {
+        width: 95% !important;        /* Ocupa 95% da largura */
+        max-width: none !important;   /* Tira limite de largura */
+        height: auto !important;      /* Altura ajustável */
+        max-height: 90vh !important;  /* Não deixa passar da altura da tela */
+        
+        /* Centralização Absoluta */
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    /* Ajuste específico para a janela do jogo (Program Manager) */
+    #program-manager {
+        height: 80vh !important; /* Um pouco maior para caber as pastas */
+    }
+
+    /* --- 3. LEADERBOARD (Tabela) --- */
+    /* Faz a tabela ter rolagem horizontal se não couber os dados */
+    .tabela-container {
+        overflow-x: auto; 
+        max-height: 50vh; /* Limita altura da lista no celular */
+    }
+
+    .tabela-retro th, .tabela-retro td {
+        padding: 5px !important; 
+        font-size: 12px !important; /* Letra menor na tabela */
+    }
+
+    /* --- 4. ÁREA DE TRABALHO (Desktop Icons) --- */
+    #desktop {
+        display: flex;
+        flex-direction: row; /* Mantém linha, mas quebra se precisar */
+        flex-wrap: wrap;
+        align-content: flex-start;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .desktop-icon {
+        width: 70px; /* Ícones menores */
+        margin: 5px;
+        font-size: 12px;
+    }
+
+    .desktop-icon img {
+        width: 32px !important; /* Ícone visual menor */
+    }
+
+    /* --- 5. MENU INICIAR & BARRA DE TAREFAS --- */
+    .start-menu {
+        width: 80% !important; /* Menu ocupa quase toda largura */
+        left: 5px !important;
+        bottom: 50px !important;
+    }
+
+    #taskbar {
+        height: 45px !important; /* Barra um pouco maior para o dedo */
+    }
+
+    .start-btn {
+        padding: 5px 15px !important; /* Botão iniciar maior */
+    }
+
+    /* --- 6. BOTÕES EM GERAL --- */
+    /* Aumenta área de toque para dedos */
+    button, .btn-retro {
+        padding: 12px 10px !important; 
+        font-size: 14px !important;
+        touch-action: manipulation; /* Melhora resposta ao toque */
+    }
+
+    /* --- 7. TELA DE LOGIN (Index) --- */
+    .login-container {
+        width: 90% !important;
+    }
+
+    .os-title {
+        font-size: 22px !important;
+    }
+
+    /* --- 8. MEMES E EXTRAS --- */
+    #meme-overlay img, #mirror-overlay img {
+        max-width: 95% !important;
+        height: auto !important;
+    }
+}
+
+/* ============================================================
+   TELAS MUITO PEQUENAS (Ex: iPhone SE, Galaxy Fold fechado)
+   ============================================================ */
+@media (max-width: 380px) {
+    .titulo-texto span {
+        font-size: 11px; /* Diminui título da janela */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+    }
+    
+    h2 {
+        font-size: 16px !important;
+    }
+    
+    .rodape-acoes {
+        flex-direction: column; /* Botões um embaixo do outro */
+        gap: 10px;
+    }
+    
+    .rodape-acoes button {
+        width: 100%; /* Botão ocupa largura total */
+    }
+}
