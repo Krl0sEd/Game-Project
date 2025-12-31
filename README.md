@@ -27,6 +27,7 @@ Este simulador "ensina" conceitos como:
 
 ## 🕹️ Como Jogar
 
+1. **Entre pelo link:** [Compu-OS](https://krl0sed.github.io/Game-Project/).
 1. **Faça Login:** Digite seu nome de usuário na tela inicial.
 2. **Siga as Instruções:** Uma caixa de texto no topo da tela dirá o que fazer (ex: "Abra o Email").
 3. **Seja Rápido:** O tempo está correndo e seus pontos diminuindo!
