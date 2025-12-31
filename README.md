@@ -47,17 +47,6 @@ Para os instrutores ou chefes do setor:
 - **Senha Secreta:** `poucas pessoas possuem acesso...` 
 - *Cuidado: Isso apaga todos os dados salvos no navegador!*
 
-## 📂 Estrutura das Pastas
-
-/
-├── index.html          # Tela de Login
-├── game.html           # O Jogo (Área de Trabalho)
-├── leaderboard.html    # O Ranking
-└── assets/
-    ├── css/            # Estilos (game.css, responsividade.css...)
-    ├── js/             # Lógica (game.js, leaderboard.js...)
-    └── audio/          # Sons do sistema ´´´
-
 ## Explicações técnicas
 
 - Explicação técnica dos conceitos de **JavaScript (Vanilla)** que utilizei no projeto se encontrarão em arquivo localizado na pasta raiz (documentação técnica). Só acesse caso seja desenvolvedor ou se interesse pelo assunto!
