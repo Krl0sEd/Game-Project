@@ -35,7 +35,7 @@
             <div> Lixeira </div>
         </div>
         
-        <div class="desktop-icon">
+        <div class="desktop-icon" onclick="abrirPromptSenha()">
             <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-4.png" alt="System32 (C:)">
             <div> System32 (C:)</div>
         </div>
@@ -259,6 +259,31 @@
         <button onclick="fecharConfiguracoes()">OK</button>
         <button onclick="fecharConfiguracoes()">Cancelar</button>
     </div>
+</div>
+
+ <!-- Janela de Prompt de Senha -->
+
+<div id="janela-senha" class="janela-flutuante" style="display: none; width: 300px; z-index: 9999;">
+
+    <div class="barra-titulo" style="background: linear-gradient(90deg, #cc0000, #ff4444);">
+        <span>⛔ ACESSO RESTRITO</span>
+        <button class="btn-fechar" onclick="fecharPromptSenha()">X</button>
+    </div>
+    
+    <div class="conteudo-janela" style="flex-direction: column; align-items: center; text-align: center;">
+        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" alt="Cadeado" width="32">
+        <p style="margin: 10px 0; color: black;">DIGITE A SENHA DE ADMINISTRADOR:</p>
+        
+        <input type="password" id="input-senha-secreta" style="width: 90%; padding: 5px; font-family: sans-serif;">
+        
+        <p id="msg-erro" style="color: red; font-size: 10px; display: none;">SENHA INCORRETA!</p>
+    </div>
+    
+    <div class="rodape-janela" style="justify-content: center;">
+        <button onclick="verificarSenhaSystem32()">💣 FORMATAR</button>
+        <button onclick="fecharPromptSenha()">Cancelar</button>
+    </div>
+
 </div>
 
     <script src="../assets/js/game.js"></script>

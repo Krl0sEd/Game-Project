@@ -175,74 +175,7 @@ function checarMissao(acao) {
 }
 
 // =================================================
-// 3. INICIALIZAÇÃO (Ao carregar a página)
-// =================================================
-window.onload = function() {
-    tempoInicioMissao = Date.now();
-
-    // CARREGAR JOGO SALVO
-    const saveAntigo = localStorage.getItem('compuZone_SaveData');
-    if (saveAntigo) {
-        try {
-            const dados = JSON.parse(saveAntigo);
-            missaoAtual = dados.missaoIndex;
-            pontuacaoTotal = dados.pontuacao;
-            
-            // Se o jogo já tinha acabado, reseta
-            if(missaoAtual >= missoes.length) missaoAtual = 0;
-
-            console.log("Progresso recuperado com sucesso!");
-            atualizarHUD(); // Atualiza o texto da missão na tela
-        } catch (e) {
-            console.log("Erro ao carregar save, começando do zero.");
-        }
-    }
-    
-    // Configura nome na janela
-    const nomeSalvo = localStorage.getItem('playerName');
-    const tituloJanela = document.querySelector('.title-bar span');
-    if (nomeSalvo && tituloJanela) tituloJanela.innerText = `Explorer - ${nomeSalvo}`;
-    
-    // Configura Áudio
-    const audio = document.getElementById('musica-fundo');
-    if(audio) {
-        audio.volume = 0.1;
-        audio.play().catch(() => document.body.addEventListener('click', () => audio.play(), { once: true }));
-    }
-
-    // --- ARRASTAR JANELA (Drag & Drop) ---
-    const janela = document.getElementById("program-manager");
-    const barraTitulo = janela.querySelector(".title-bar");
-    let isDragging = false, startX, startY, initialLeft, initialTop;
-
-    barraTitulo.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        startX = e.clientX; startY = e.clientY;
-        initialLeft = janela.offsetLeft; initialTop = janela.offsetTop;
-        document.body.style.cursor = "move";
-    });
-
-    window.addEventListener("mousemove", (e) => {
-        if (isDragging) {
-            e.preventDefault();
-            const dx = e.clientX - startX; const dy = e.clientY - startY;
-            janela.style.left = `${initialLeft + dx}px`;
-            janela.style.top = `${initialTop + dy}px`;
-        }
-    });
-    window.addEventListener("mouseup", () => { isDragging = false; document.body.style.cursor = "default"; });
-
-    // --- RELÓGIO ---
-    function atualizarRelogio() {
-        const agora = new Date();
-        const divRelogio = document.querySelector('.clock');
-        if(divRelogio) divRelogio.innerText = agora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    }
-    setInterval(atualizarRelogio, 1000);
-    atualizarRelogio();
-
-    // =================================================
-    // 4. FUNÇÕES GLOBAIS (Conectadas ao HTML)
+    // 3. FUNÇÕES GLOBAIS (Conectadas ao HTML)
     // =================================================
     
     // -- Lógica de Telas (Views) --
@@ -421,5 +354,148 @@ window.fecharEspelho = function() {
         espelho.style.display = 'none';
     }
 }
+
+// --- SISTEMA DE SENHA SECRETA (System32) ---
+
+function abrirPromptSenha() {
+    const modal = document.getElementById('janela-senha');
+    const input = document.getElementById('input-senha-secreta');
+    const erro = document.getElementById('msg-erro');
     
-};
+    // Reseta o visual
+    modal.style.display = 'block';
+    input.value = ""; // Limpa o campo
+    erro.style.display = 'none'; // Esconde erro anterior
+    input.focus(); // Já deixa pronto pra digitar
+}
+
+function fecharPromptSenha() {
+    document.getElementById('janela-senha').style.display = 'none';
+}
+
+function verificarSenhaSystem32() {
+    const input = document.getElementById('input-senha-secreta');
+    const erro = document.getElementById('msg-erro');
+    const senhaDigitada = input.value;
+
+    if (senhaDigitada === "meugatinho") {
+        // Se acertar
+        fecharPromptSenha();
+        
+        // Confirmação final dramática
+        setTimeout(() => {
+            const certeza = confirm("⚠️ PERIGO CRÍTICO ⚠️\n\nIsso vai apagar TODO o seu progresso, ranking e formatar o jogo.\n\nTem certeza?");
+            
+            if (certeza) {
+                alert("🗑️ Deletando System32...\n🔥 Queimando memórias...\n💥 Tchau!");
+                localStorage.clear();
+                location.reload();
+            }
+        }, 200);
+
+    } else {
+        // Se errar
+        erro.style.display = 'block'; // Mostra texto vermelho
+        erro.innerText = "SENHA INCORRETA! O FBI ESTÁ A CAMINHO.";
+        input.value = ""; // Limpa pra tentar de novo
+        input.focus();
+    }
+}
+
+// =================================================
+// 4. INICIALIZAÇÃO (Ao carregar a página)
+// =================================================
+window.onload = function() {
+    tempoInicioMissao = Date.now();
+
+    // CARREGAR JOGO SALVO
+    const saveAntigo = localStorage.getItem('compuZone_SaveData');
+    if (saveAntigo) {
+        try {
+            const dados = JSON.parse(saveAntigo);
+            missaoAtual = dados.missaoIndex;
+            pontuacaoTotal = dados.pontuacao;
+            
+            // Se o jogo já tinha acabado, reseta
+            if(missaoAtual >= missoes.length) missaoAtual = 0;
+
+            console.log("Progresso recuperado com sucesso!");
+            atualizarHUD(); // Atualiza o texto da missão na tela
+        } catch (e) {
+            console.log("Erro ao carregar save, começando do zero.");
+        }
+    }
+    
+    // Configura nome na janela
+    const nomeSalvo = localStorage.getItem('playerName');
+    const tituloJanela = document.querySelector('.title-bar span');
+    if (nomeSalvo && tituloJanela) tituloJanela.innerText = `Explorer - ${nomeSalvo}`;
+    
+    // Configura Áudio
+    const audio = document.getElementById('musica-fundo');
+    if(audio) {
+        audio.volume = 0.1;
+        audio.play().catch(() => document.body.addEventListener('click', () => audio.play(), { once: true }));
+    }
+
+    // --- ARRASTAR JANELA (Drag & Drop) ---
+    const janela = document.getElementById("program-manager");
+    const barraTitulo = janela.querySelector(".title-bar");
+    let isDragging = false, startX, startY, initialLeft, initialTop;
+
+    barraTitulo.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX; startY = e.clientY;
+        initialLeft = janela.offsetLeft; initialTop = janela.offsetTop;
+        document.body.style.cursor = "move";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            const dx = e.clientX - startX; const dy = e.clientY - startY;
+            janela.style.left = `${initialLeft + dx}px`;
+            janela.style.top = `${initialTop + dy}px`;
+        }
+    });
+    window.addEventListener("mouseup", () => { isDragging = false; document.body.style.cursor = "default"; });
+
+    // --- RELÓGIO ---
+    function atualizarRelogio() {
+        const agora = new Date();
+        const divRelogio = document.querySelector('.clock');
+        if(divRelogio) divRelogio.innerText = agora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
+
+    const btnMenu = document.querySelector('.start-btn');
+    const menuIniciar = document.getElementById('start-menu');
+    
+    if(btnMenu && menuIniciar) {
+        // Ao clicar no botão Menu
+        btnMenu.onclick = (e) => { 
+            e.stopPropagation(); 
+            menuIniciar.classList.toggle('aberto'); 
+        }
+        
+        // Ao clicar fora para fechar
+        document.onclick = (e) => { 
+            if (!menuIniciar.contains(e.target) && menuIniciar.classList.contains('aberto')) {
+                menuIniciar.classList.remove('aberto'); 
+            }
+        }
+    }
+
+    // Atalho para apertar ENTER na senha SECRETA
+    const inputSenha = document.getElementById('input-senha-secreta');
+    if(inputSenha) {
+        inputSenha.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                verificarSenhaSystem32();
+            }
+        });
+    }
+
+}; 
