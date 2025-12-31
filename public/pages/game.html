@@ -32,7 +32,7 @@
         
         <div class="desktop-icon">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" alt="Lixeira">
-            <div> Lixeira </div>
+            <div> Lixo </div>
         </div>
         
         <div class="desktop-icon">
@@ -40,7 +40,7 @@
             <div> System32 (C:)</div>
         </div>
 
-        <div class="desktop-icon">
+        <div class="desktop-icon" onclick="window.open('https://www.senac.br', '_blank')">
             <img src="https://omunicipio.com.br/wp-content/uploads/static/fotos/noticias/1428/Senac2-1280x720.jpg" alt="Senac (D:)">
             <div> Senac (D:) </div>
         </div>
@@ -58,10 +58,10 @@
         </div>
         
         <div class="menu-bar">
-            <span class="menu-item">File</span>
-            <span class="menu-item">Options</span>
-            <span class="menu-item">Window</span>
-            <span class="menu-item">Help</span>
+            <span class="menu-item" onclick="menuIndisponivel()">Arquivos</span>
+            <span class="menu-item" onclick="menuIndisponivel()">Opções</span>
+            <span class="menu-item" onclick="menuIndisponivel()">Windows</span>
+            <span class="menu-item" onclick="menuIndisponivel()">Ajuda</span>
         </div>
 
         <!-- Conteúdo da janela -->
@@ -72,14 +72,17 @@
                     <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" style="filter: hue-rotate(160deg);">
                     <span>Documentos</span>
                 </div>
+
                 <div class="folder-item" onclick="abrirPastaFerramentas()">
                     <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
                     <span>Ferramentas</span>
                 </div>
-                <div class="folder-item">
+
+                <div class="folder-item" onclick="abrirSistemaMemes()">
                     <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
                     <span>Sistema</span>
                 </div>
+
             </div>
 
             <div id="view-docs" style="display: none; flex-wrap: wrap;">
@@ -105,7 +108,7 @@
                 </div>
 
                 <div class="folder-item" onclick="abrirCalculadora()">
-                    <img class="folder-icon" src="https://win98icons.alexmeub.com/icons/png/calculator-2.png">
+                    <img class="folder-icon" src="https://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/512/Calculator-icon.png">
                     <span>Calculadora</span>
                 </div>
 
@@ -157,10 +160,9 @@
         <div class="menu-item" onclick="abrirJanela()">
             <img src="https://static.vecteezy.com/system/resources/previews/032/510/691/non_2x/abstract-80s-interface-retro-computer-black-screen-with-old-programs-dark-ui-program-glitch-and-hack-or-virtual-virus-attack-illustration-vector.jpg" alt="Icon">
             <span>Programas</span>
-            <div class="arrow">▶</div> 
         </div>
         
-        <div class="menu-item" onclick="alert('Função do CMD em construção...')">
+        <div class="menu-item" onclick="abrirCMD()">
              <img src="https://img.icons8.com/color/48/console.png" alt="CMD Icon">
              <span>CMD</span>
         </div>
@@ -195,6 +197,16 @@
 <audio id="som-minimizar">
     <source src="../assets/audio/minimizar.wav" type="audio/mpeg">
 </audio>
+
+<div id="meme-overlay" onclick="fecharSistemaMemes()" 
+     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 99999; 
+            justify-content: center; align-items: center; cursor: pointer;">
+    
+    <img src="https://criancaperpetua.wordpress.com/wp-content/uploads/2014/02/pc-quebrado.jpg" 
+         alt="Setup Antigo" 
+         style="max-width: 85%; max-height: 85%; border: 4px solid #c0c0c0; box-shadow: 0 0 30px black;">
+</div>
 
     <script src="../assets/js/game.js"></script>
 

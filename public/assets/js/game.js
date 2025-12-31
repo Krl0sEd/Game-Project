@@ -271,7 +271,7 @@ window.onload = function() {
     window.abrirApresentacao = function() {
         // Só deixa abrir o PPT se já tiver mandado o email (Missão 5 completa)
         if(missaoAtual < 5) {
-            alert("⚠️ Termine as tarefas anteriores (Email) antes de ver a apresentação!");
+            alert("⚠️ Termine as tarefas anteriores antes de ver a apresentação!");
             return;
         }
         alert("📽️ SLIDE 1: Bem-vindo à Compu-Zone!\nSLIDE 2: Aqui o futuro é retrô.");
@@ -298,23 +298,50 @@ window.onload = function() {
         }
     }
 
-    // --- CONTROLES DE JANELA (COM SOM AGORA!) ---
-    window.fecharJanela = function() { document.getElementById('program-manager').style.display = 'none'; }
+   // --- CONTROLES DE JANELA (AGORA TODOS COM SOM!) ---
     
-    // AQUI ESTÁ A CORREÇÃO DO SOM:
+    // 1. Botão Fechar Janela Principal (X)
+    window.fecharJanela = function() { 
+        document.getElementById('program-manager').style.display = 'none'; 
+        
+        // Adicionado o som aqui:
+        const som = document.getElementById('som-minimizar');
+        if(som) som.play().catch(e => console.log("Erro som:", e));
+    }
+    
+    // 2. Botão Minimizar (_)
     window.minimizarJanela = function() { 
         document.getElementById('program-manager').style.display = 'none';
         
-        // Toca o som se ele existir
+        // O som já existia aqui:
         const som = document.getElementById('som-minimizar');
         if(som) som.play().catch(e => console.log("Erro som:", e));
     }
 
-    window.fecharEmail = function() { document.getElementById('email-window').style.display = 'none'; }
+    // 3. Botão Fechar Email (X)
+    window.fecharEmail = function() { 
+        document.getElementById('email-window').style.display = 'none'; 
+        
+        // Adicionado o som aqui também:
+        const som = document.getElementById('som-minimizar');
+        if(som) som.play().catch(e => console.log("Erro som:", e));
+    }
 
-    // Bônus Minecraft (BLOQUEIO)
-    window.abrirAppMinecraft = function() {
-        alert("✋ Opa! Foco na missão. Agora não é hora de jogar Minecraft!");
+    // FUNÇÃO DO "SISTEMA" (O MEME) ---
+    window.abrirSistemaMemes = function() {
+        // Mostra a cortina preta com a imagem (muda display para flex para centralizar)
+        document.getElementById('meme-overlay').style.display = 'flex';
+        alert("⚙️ ACESSANDO NÚCLEO DO SISTEMA...\n\nATENÇÃO: Tecnologia de ponta detectada.");
+    }
+
+    window.fecharSistemaMemes = function() {
+        // Esconde a cortina de novo
+        document.getElementById('meme-overlay').style.display = 'none';
+    }
+
+    // FUNÇÃO DO CMD (Prompt) ---
+    window.abrirCMD = function() {
+        alert("⚠️ ACESSO AO SISTEMA\n\nEssa ferramenta é avançada e usada para manutenção.\nSe você não for um técnico, melhor não alterar nada aqui!");
     }
 
     window.acaoDesligar = function() {
@@ -327,8 +354,13 @@ window.onload = function() {
             checarMissao('desligar_pc');
         } else {
             // Se tentar sair antes da hora
-            alert("⚠️ Ei! Você ainda tem tarefas pendentes. Termine o dia primeiro!");
+            alert("⚠️ ESPERA UM POUCO! Você ainda tem tarefas pendentes. Termine o dia primeiro!");
         }
+    }
+
+    // --- MENUS DECORATIVOS ---
+    window.menuIndisponivel = function() {
+        alert("🚧 EM CONSTRUÇÃO!\n\nEsse menu é apenas decorativo. Nenhuma função foi implementada aqui ainda.");
     }
     
 };
