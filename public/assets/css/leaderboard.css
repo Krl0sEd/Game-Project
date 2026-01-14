@@ -1,68 +1,78 @@
+/* ============================================================
+   LEADERBOARD.CSS - VERSÃO FINAL BLINDADA
+   ============================================================ */
+
 /* 1. Reset Básico e Fundo da Tela */
 body {
-    background-color: #008080; /* Aquele verde-azulado clássico do Windows */
-    font-family: 'Pixelify Sans', sans-serif; /* Sua fonte pixelada */
+    background-color: #008080; /* Verde Windows */
+    font-family: 'Pixelify Sans', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden; /* Evita barras de rolagem na tela inteira */
+    overflow: hidden; /* O scroll será dentro da janela, não no corpo */
 }
 
 /* 2. A Janela Flutuante (Container Principal) */
 .janela-leaderboard {
     width: 90%;
-    max-width: 600px; /* Não deixa ficar gigante em telas grandes */
-    background-color: #c0c0c0; /* Cinza Windows */
+    max-width: 600px;
+    /* Altura flexível, mas com limite para não passar da tela */
+    max-height: 90vh; 
+    background-color: #c0c0c0;
     
-    /* Borda 3D Clássica (Outset) */
+    /* Borda 3D Clássica */
     border-top: 2px solid #ffffff;
     border-left: 2px solid #ffffff;
     border-right: 2px solid #000000;
     border-bottom: 2px solid #000000;
     
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.5); /* Sombra projetada no fundo */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    
+    /* LÓGICA FLEX: Isso impede que o conteúdo seja cortado */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
 }
 
-/* 3. Barra de Título (Onde fica o nome.exe) */
+/* 3. Barra de Título */
 .barra-titulo {
-    background: linear-gradient(90deg, #000080, #1084d0); /* Degradê azul */
-    padding: 4px 8px;
+    background: linear-gradient(90deg, #000080, #1084d0);
+    padding: 6px 8px; /* Um pouco maior pra facilitar o toque */
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
     font-weight: bold;
     letter-spacing: 1px;
+    flex-shrink: 0; /* Impede que a barra encolha */
 }
 
 .titulo-texto {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espaço entre ícone e texto */
+    gap: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* 4. Botões da Janela (_ □ X) */
+/* 4. Botões da Janela */
 .botoes-janela {
     display: flex;
-    gap: 2px;
+    gap: 4px; /* Mais espaço entre botões */
 }
 
 .botoes-janela button {
-    width: 20px;
-    height: 20px;
+    width: 24px; /* Botões maiores para mobile */
+    height: 24px;
     background-color: #c0c0c0;
     border-top: 1px solid #ffffff;
     border-left: 1px solid #ffffff;
     border-right: 1px solid #000000;
     border-bottom: 1px solid #000000;
-    font-family: Arial, sans-serif; /* Fonte simples para os símbolos */
     font-weight: bold;
-    font-size: 12px;
-    line-height: 10px;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -71,51 +81,59 @@ body {
 }
 
 .botoes-janela button:active {
-    border-top: 1px solid #000000;
-    border-left: 1px solid #000000;
-    border-right: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
-    padding-top: 2px; /* Efeito de afundar */
+    border-color: #000 #fff #fff #000;
+    padding-top: 2px;
     padding-left: 2px;
 }
 
-/* 5. Conteúdo Interno */
+/* 5. Conteúdo Interno (Onde fica a tabela) */
 .conteudo-interno {
     padding: 15px;
+    /* FLEX: Ocupa o espaço que sobra e permite scroll se necessário */
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* O scroll vai na tabela, não aqui */
 }
 
 .cabecalho-ranking {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Não deixa o título amassar */
 }
 
 .cabecalho-ranking h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 20px; /* Levemente menor para caber melhor */
     text-transform: uppercase;
     color: #000;
 }
 
 .cabecalho-ranking p {
     margin: 5px 0 0 0;
-    font-size: 14px;
+    font-size: 12px;
     color: #444;
 }
 
-/* 6. A Tabela (Sua parte original, ajustada) */
+/* 6. A Tabela */
 .tabela-container {
     background: white;
     border: 2px solid;
-    border-color: #808080 #ffffff #ffffff #808080; /* Borda Inset (afundada) */
+    border-color: #808080 #ffffff #ffffff #808080;
     padding: 2px;
-    max-height: 300px;
-    overflow-y: auto; /* Rolagem se a lista for grande */
-    margin-bottom: 15px;
+    
+    /* MÁGICA DO CSS: */
+    flex: 1; /* Ocupa todo o espaço disponível verticalmente */
+    overflow-y: auto; /* Scroll vertical */
+    overflow-x: auto; /* Scroll horizontal se a tabela for larga */
+    margin-bottom: 10px;
+    min-height: 100px; /* Garante que a tabela nunca suma */
 }
 
 .tabela-retro {
     width: 100%;
     border-collapse: collapse;
+    min-width: 300px; /* Garante que não esprema demais as colunas */
 }
 
 .tabela-retro th {
@@ -124,33 +142,32 @@ body {
     border-bottom: 1px solid #000;
     padding: 8px;
     text-align: left;
-    font-size: 14px;
-    box-shadow: inset 1px 1px #fff; /* Brilho interno no botão do cabeçalho */
+    font-size: 13px;
+    position: sticky; /* Cabeçalho fixo ao rolar */
+    top: 0;
+    z-index: 10;
+    box-shadow: inset 1px 1px #fff;
 }
 
 .tabela-retro td {
-    border: 1px dotted #808080; /* Pontilhado fica bem retrô */
+    border: 1px dotted #808080;
     padding: 6px;
     font-family: 'Courier New', monospace;
-    font-size: 14px;
+    font-size: 13px;
 }
 
-.tabela-retro tr:nth-child(even) {
-    background-color: #e0f0ff; /* Azul bem clarinho nas listras */
-}
+.tabela-retro tr:nth-child(even) { background-color: #e0f0ff; }
+.tabela-retro tr:hover { background-color: #000080; color: white; cursor: default; }
 
-.tabela-retro tr:hover {
-    background-color: #000080;
-    color: white; /* Seleção estilo Windows */
-    cursor: default;
-}
-
-/* 7. Rodapé com Botões de Ação */
+/* 7. Rodapé com Botões */
 .rodape-acoes {
     display: flex;
     justify-content: space-between;
     border-top: 1px groove #fff;
     padding-top: 10px;
+    flex-shrink: 0; /* Garante que os botões nunca sumam */
+    gap: 10px;
+    flex-wrap: wrap; /* Se a tela for muito fina, quebra linha */
 }
 
 .btn-retro {
@@ -159,49 +176,81 @@ body {
     border-left: 2px solid #ffffff;
     border-right: 2px solid #000000;
     border-bottom: 2px solid #000000;
-    padding: 5px 15px;
+    padding: 10px 15px; /* Área de toque maior */
     font-family: 'Pixelify Sans', sans-serif;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     font-size: 14px;
+    flex: 1; /* Botões dividem o espaço igualmente */
+    white-space: nowrap;
 }
 
 .btn-retro:active {
     border-color: #000000 #ffffff #ffffff #000000;
-    transform: translate(1px, 1px); /* Move levemente ao clicar */
+    transform: translate(1px, 1px);
 }
-        .janela-senha-rh {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px;
-            background-color: #c0c0c0;
-            border: 2px solid;
-            border-color: #ffffff #000000 #000000 #ffffff; /* Borda 3D */
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5); /* Sombra Retrô */
-            z-index: 9999;
-            font-family: 'Tahoma', sans-serif;
-            display: flex; flex-direction: column;
-        }
-        
-        .janela-senha-rh .barra-titulo {
-            background: linear-gradient(90deg, #cc0000, #ff4444); /* Vermelho Alerta */
-            color: white;
-            padding: 4px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid #808080;
-        }
 
-        .janela-senha-rh button {
-            background: #c0c0c0;
-            border: 2px solid;
-            border-color: #fff #000 #000 #fff;
-            cursor: pointer;
-            font-family: 'Pixelify Sans', sans-serif;
-        }
-        
-        .janela-senha-rh button:active {
-            border-color: #000 #fff #fff #000;
-        }
+/* 8. Janela de Senha RH */
+.janela-senha-rh {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 320px;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #000000 #000000 #ffffff;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+    z-index: 9999;
+    font-family: 'Tahoma', sans-serif;
+    display: flex; flex-direction: column;
+}
+
+.janela-senha-rh .barra-titulo {
+    background: linear-gradient(90deg, #cc0000, #ff4444);
+    border-bottom: 2px solid #808080;
+}
+
+.janela-senha-rh button {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #000 #000 #fff;
+    cursor: pointer;
+    font-family: 'Pixelify Sans', sans-serif;
+    padding: 10px; /* Botão gordinho */
+}
+
+/* ============================================================
+   AJUSTES FINAIS PARA CELULAR (Sobrescrevem o padrão)
+   ============================================================ */
+
+/* Celular Deitado (Landscape) - Onde costuma cortar */
+@media (max-height: 450px) {
+    .janela-leaderboard {
+        height: 95vh; /* Usa quase toda a altura */
+    }
+    
+    .cabecalho-ranking h2 { font-size: 16px; margin-bottom: 0; }
+    .cabecalho-ranking p { display: none; } /* Esconde subtítulo pra ganhar espaço */
+    
+    .conteudo-interno { padding: 5px 10px; }
+    
+    .tabela-container { margin-bottom: 5px; }
+    
+    .btn-retro { padding: 5px 10px; font-size: 12px; }
+}
+
+/* Celular em Pé (Portrait) */
+@media (max-width: 400px) {
+    .tabela-retro th, .tabela-retro td {
+        font-size: 11px; /* Letra menor pra caber na largura */
+        padding: 4px;
+    }
+    
+    .titulo-texto span {
+        font-size: 12px;
+    }
+}
