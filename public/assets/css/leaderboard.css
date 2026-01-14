@@ -1,6 +1,12 @@
 /* ============================================================
-   LEADERBOARD.CSS - VERSÃO FINAL BLINDADA
+   LEADERBOARD.CSS 
    ============================================================ */
+
+   /* 1. RESET E ESTRUTURA BLINDADA */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
 /* 1. Reset Básico e Fundo da Tela */
 body {
@@ -9,30 +15,29 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* O SEGREDO: 'dvh' ajusta o tamanho descontando a barra do navegador */
+    height: 100dvh;
     margin: 0;
-    overflow: hidden; /* O scroll será dentro da janela, não no corpo */
+    overflow: hidden; /* O corpo não rola, só a janela rola */
 }
 
-/* 2. A Janela Flutuante (Container Principal) */
+/* 2. A Janela Principal (Container Principal) */
 .janela-leaderboard {
-    width: 90%;
+    width: 98%;
     max-width: 600px;
-    /* Altura flexível, mas com limite para não passar da tela */
-    max-height: 90vh; 
-    background-color: #c0c0c0;
-    
+    /* Altura flexível, mas com limite para não passar da tela (respeitar celular) */
+    max-height: 90dvh; 
+    background-color: #c0c0c0;  
     /* Borda 3D Clássica */
     border-top: 2px solid #ffffff;
     border-left: 2px solid #ffffff;
     border-right: 2px solid #000000;
     border-bottom: 2px solid #000000;
-    
     box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
-    
     /* LÓGICA FLEX: Isso impede que o conteúdo seja cortado */
     display: flex;
     flex-direction: column; 
+    position: relative;
 }
 
 /* 3. Barra de Título */
@@ -46,12 +51,14 @@ body {
     font-weight: bold;
     letter-spacing: 1px;
     flex-shrink: 0; /* Impede que a barra encolha */
+    min-height: 35px; /* Altura mínima para toque confortável */
 }
 
 .titulo-texto {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -64,8 +71,8 @@ body {
 }
 
 .botoes-janela button {
-    width: 24px; /* Botões maiores para mobile */
-    height: 24px;
+    width: 26px; /* Botões maiores para mobile */
+    height: 26px;
     background-color: #c0c0c0;
     border-top: 1px solid #ffffff;
     border-left: 1px solid #ffffff;
@@ -88,46 +95,46 @@ body {
 
 /* 5. Conteúdo Interno (Onde fica a tabela) */
 .conteudo-interno {
-    padding: 15px;
-    /* FLEX: Ocupa o espaço que sobra e permite scroll se necessário */
-    flex: 1; 
+    padding: 5px;
+    flex: 1; /* FLEX: Ocupa o espaço que sobra e permite scroll se necessário */
     display: flex;
     flex-direction: column;
     overflow: hidden; /* O scroll vai na tabela, não aqui */
+    min-height: 0; /* Fix para Firefox/Mobile */
 }
 
 .cabecalho-ranking {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     flex-shrink: 0; /* Não deixa o título amassar */
 }
 
 .cabecalho-ranking h2 {
     margin: 0;
-    font-size: 20px; /* Levemente menor para caber melhor */
+    font-size: 16px; /* Levemente menor para caber melhor */
     text-transform: uppercase;
     color: #000;
 }
 
 .cabecalho-ranking p {
-    margin: 5px 0 0 0;
+    margin: 2px 0 0 0;
     font-size: 12px;
     color: #444;
 }
 
-/* 6. A Tabela */
+/* 6. A Tabela (ROLAGEM DUPLA) */
 .tabela-container {
     background: white;
     border: 2px solid;
     border-color: #808080 #ffffff #ffffff #808080;
     padding: 2px;
-    
     /* MÁGICA DO CSS: */
     flex: 1; /* Ocupa todo o espaço disponível verticalmente */
     overflow-y: auto; /* Scroll vertical */
     overflow-x: auto; /* Scroll horizontal se a tabela for larga */
     margin-bottom: 10px;
     min-height: 100px; /* Garante que a tabela nunca suma */
+    width: 100%;
 }
 
 .tabela-retro {
@@ -142,7 +149,7 @@ body {
     border-bottom: 1px solid #000;
     padding: 8px;
     text-align: left;
-    font-size: 13px;
+    font-size: 12px;
     position: sticky; /* Cabeçalho fixo ao rolar */
     top: 0;
     z-index: 10;
@@ -151,20 +158,21 @@ body {
 
 .tabela-retro td {
     border: 1px dotted #808080;
-    padding: 6px;
+    padding: 8px;
     font-family: 'Courier New', monospace;
     font-size: 13px;
+    white-space: nowrap;
 }
 
 .tabela-retro tr:nth-child(even) { background-color: #e0f0ff; }
 .tabela-retro tr:hover { background-color: #000080; color: white; cursor: default; }
 
-/* 7. Rodapé com Botões */
+/* 7. Rodapé com Botões (SEMPRE VISÍVEL) */
 .rodape-acoes {
     display: flex;
     justify-content: space-between;
-    border-top: 1px groove #fff;
-    padding-top: 10px;
+    border-top: 2px groove #fff;
+    padding: 10px;
     flex-shrink: 0; /* Garante que os botões nunca sumam */
     gap: 10px;
     flex-wrap: wrap; /* Se a tela for muito fina, quebra linha */
@@ -176,14 +184,14 @@ body {
     border-left: 2px solid #ffffff;
     border-right: 2px solid #000000;
     border-bottom: 2px solid #000000;
-    padding: 10px 15px; /* Área de toque maior */
+    padding: 10px 5px; /* Menos padding lateral */
     font-family: 'Pixelify Sans', sans-serif;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    font-size: 14px;
+    font-size: 12px;
     flex: 1; /* Botões dividem o espaço igualmente */
     white-space: nowrap;
 }
@@ -196,14 +204,15 @@ body {
 /* 8. Janela de Senha RH */
 .janela-senha-rh {
     position: fixed;
-    top: 50%; left: 50%;
+    top: 50%; 
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 320px;
+    width: 85%;
+    max-width: 300px;
     background-color: #c0c0c0;
     border: 2px solid;
     border-color: #ffffff #000000 #000000 #ffffff;
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0 0 0 100vh rgba(0,0,0,0.5);
     z-index: 9999;
     font-family: 'Tahoma', sans-serif;
     display: flex; flex-direction: column;
@@ -224,27 +233,59 @@ body {
 }
 
 /* ============================================================
-   AJUSTES FINAIS PARA CELULAR (Sobrescrevem o padrão)
+   AJUSTES FINAIS PARA CELULAR
    ============================================================ */
 
-/* Celular Deitado (Landscape) - Onde costuma cortar */
-@media (max-height: 450px) {
+/* Celular Deitado (Landscape)  */
+@media (max-height: 500px) {
+
     .janela-leaderboard {
-        height: 95vh; /* Usa quase toda a altura */
+        height: 98vh; /* Usa quase toda a TELA na altura */
+        width: 96%;    /* Quase 100% da largura */
+        border: 2px solid #000;
     }
     
-    .cabecalho-ranking h2 { font-size: 16px; margin-bottom: 0; }
-    .cabecalho-ranking p { display: none; } /* Esconde subtítulo pra ganhar espaço */
+    .cabecalho-ranking h2 { 
+        font-size: 14px;
+        margin-bottom: 0; 
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .cabecalho-ranking p { 
+        display: none; 
+    }
     
-    .conteudo-interno { padding: 5px 10px; }
+    .conteudo-interno {
+        padding: 2px; 
+    }
     
-    .tabela-container { margin-bottom: 5px; }
+    .tabela-container { 
+        margin-bottom: 2px;
+        border: 1px inset #fff;
+    }
     
-    .btn-retro { padding: 5px 10px; font-size: 12px; }
+    .btn-retro { 
+        padding: 6px; 
+        font-size: 12px; 
+    }
+
+    /* Botões menores ainda na horizontal */
+    .rodape-acoes { 
+        padding: 4px; 
+        gap: 5px; 
+    }
+
+    .btn-retro { 
+        padding: 5px; 
+        font-size: 11px;
+     }
+
 }
 
 /* Celular em Pé (Portrait) */
-@media (max-width: 400px) {
+@media (max-width: 380px) {
+
     .tabela-retro th, .tabela-retro td {
         font-size: 11px; /* Letra menor pra caber na largura */
         padding: 4px;
@@ -253,4 +294,8 @@ body {
     .titulo-texto span {
         font-size: 12px;
     }
+
+    .rodape-acoes { 
+        flex-direction: column;
+     } 
 }

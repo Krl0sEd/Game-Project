@@ -1,5 +1,5 @@
 /* ============================================================
-   RESPONSIVIDADE ABSOLUTA - VERSÃO FINAL (FIX BARRA DE NAVEGADOR)
+   RESPONSIVIDADE 
    ============================================================ */
 
 /* --- 1. CONFIGURAÇÕES GLOBAIS (FIX PARA BOTÃO INICIAR SUMINDO) --- */
@@ -39,8 +39,13 @@
     }
 
     /* Tira zoom e delay de toque */
-    input, textarea, select { font-size: 16px !important; }
-    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    input, textarea, select { 
+        font-size: 16px !important; 
+    }
+
+    * { 
+        -webkit-tap-highlight-color: transparent; box-sizing: border-box; 
+    }
 }
 
 /* ============================================================
@@ -65,11 +70,9 @@
         width: 95% !important;
         height: auto !important;
         max-height: 80dvh !important; /* Limite seguro */
-        
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        
         display: flex;
         flex-direction: column;
     }
@@ -97,12 +100,24 @@
         max-height: 80dvh; /* Evita que ícones fiquem embaixo da taskbar */
         overflow-y: auto;
     }
-    .desktop-icon { width: 90px !important; margin: 5px; }
-    .desktop-icon img { width: 56px !important; }
+    .desktop-icon { 
+        width: 90px !important; 
+        margin: 5px; }
+
+    .desktop-icon img { 
+        width: 56px !important;
+     }
 
     /* Botões grandes para dedo */
-    .rodape-acoes { flex-wrap: wrap; }
-    .btn-retro { flex: 1; padding: 10px; white-space: nowrap; }
+    .rodape-acoes { 
+        flex-wrap: wrap; 
+    }
+
+    .btn-retro { 
+        flex: 1; 
+        padding: 10px; 
+        white-space: nowrap; 
+    }
 }
 
 /* ============================================================
@@ -125,11 +140,9 @@
     .janela-flutuante, #program-manager, .janela-leaderboard, #email-window {
         width: 85% !important;
         height: 80dvh !important; /* Garante que cabe na altura */
-        
         top: 48% !important; /* Levemente pra cima */
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        
         display: flex;
         flex-direction: column;
     }
@@ -146,9 +159,19 @@
         overflow-x: auto !important;
         margin-bottom: 5px;
     }
-    .cabecalho-ranking h2 { font-size: 16px !important; margin: 2px 0 !important; }
-    .cabecalho-ranking p { display: none; } /* Remove subtítulo pra ganhar espaço */
-    .rodape-acoes { padding: 5px !important; }
+
+    .cabecalho-ranking h2 {
+         font-size: 16px !important; margin: 2px 0 !important; 
+        }
+
+    .cabecalho-ranking p { 
+        display: none; 
+    } 
+
+    /* Remove subtítulo pra ganhar espaço */
+    .rodape-acoes { 
+        padding: 5px !important; 
+    }
 
     /* SCORE E MISSÃO (A22 FIX) */
     #score-box {
@@ -171,7 +194,12 @@
         padding: 2px 10px !important;
         border-top: none; /* Cola no teto */
     }
-    #mission-text { font-size: 12px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #mission-text { 
+        font-size: 12px !important; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; }
+
     .mission-label { display: none; }
 
     /* ÍCONES */
@@ -186,7 +214,16 @@
    MICROTELAS (Galaxy Fold Fechado / SE Antigo)
    ============================================================ */
 @media (max-width: 360px) {
-    .desktop-icon { width: 70px !important; }
-    .desktop-icon img { width: 40px !important; }
-    .rodape-acoes button { width: 100% !important; margin-bottom: 5px; }
+    .desktop-icon { 
+        width: 70px !important; 
+    }
+
+    .desktop-icon img { 
+        width: 40px !important; 
+    }
+
+    .rodape-acoes button { 
+        width: 100% !important; 
+        margin-bottom: 5px; 
+    }
 }
