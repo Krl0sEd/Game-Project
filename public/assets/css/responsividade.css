@@ -1,105 +1,144 @@
 /* ============================================================
-   RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (VERSÃO FINAL A22)
+   RESPONSIVIDADE BLINDADA - OFFICE SIMULATOR (FINAL)
    ============================================================ */
 
-/* --- 0. PREVENÇÃO DE BUGS MOBILE (iPhone/Android) --- */
-@media (max-width: 768px) {
-    input, textarea, select { font-size: 16px !important; }
-    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+/* --- 1. CONFIGURAÇÕES GERAIS DE PROTEÇÃO (Mobile First) --- */
+@media (max-width: 1024px) {
+    /* Bloqueia rolagem da página inteira (o fundo fica fixo) */
     body {
-        background-size: cover; background-position: center;
-        background-attachment: fixed; overflow: hidden; 
-        position: fixed; width: 100%; height: 100%;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Evita zoom automático chato do iPhone ao clicar em inputs */
+    input, textarea, select {
+        font-size: 16px !important;
+    }
+
+    /* Remove delay de toque e highlight azul */
+    * {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
     }
 }
 
-/* --- 1. AJUSTES GERAIS PARA MOBILE (EM PÉ OU DEITADO) --- */
+/* --- 2. LAYOUT PARA CELULAR EM PÉ (Portrait) --- */
 @media (max-width: 768px) {
-    /* Centralização padrão das janelas */
+    
+    /* JANELAS: Centralizadas e Largas */
     .janela-leaderboard, .janela-flutuante, .janela-senha-rh, 
     #program-manager, #email-window, #janela-senha {
-        /* Fix para não grudar na borda */
-        width: 90% !important; 
-        max-width: none !important; height: auto !important;
-        max-height: 85vh !important;
-        top: 50% !important; left: 50% !important;
+        width: 92% !important;        /* Ocupa quase tudo */
+        max-width: none !important;
+        height: auto !important;
+        max-height: 80vh !important;  /* Limite vertical */
+        
+        /* Centralização Absoluta */
+        top: 50% !important;
+        left: 50% !important;
         transform: translate(-50%, -50%) !important;
+        
         border-radius: 4px;
+        display: flex;
+        flex-direction: column;
     }
 
-    #program-manager { height: 70vh !important; display: flex; flex-direction: column; }
-    #program-manager .window-content { overflow-y: auto; flex: 1; }
-    
-    /* Ícones maiores */
-    #desktop { display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px; gap: 15px; }
-    .desktop-icon { width: 95px !important; margin: 5px; text-shadow: 1px 1px 2px black; }
-    .desktop-icon img { width: 54px !important; }
+    /* Conteúdo das janelas com rolagem */
+    .conteudo-janela, .window-content {
+        overflow-y: auto !important;
+        flex: 1; /* Ocupa o espaço que sobra */
+    }
 
-    /* Menus e Barras */
-    .start-menu { width: 90% !important; left: 50% !important; transform: translateX(-50%) !important; bottom: 55px !important; z-index: 99999; }
-    #taskbar { height: 50px !important; z-index: 99998; }
-    .start-btn { padding: 5px 20px !important; font-size: 16px !important; height: 40px; }
-    .window-controls .btn-control, .botoes-janela button { width: 40px !important; height: 35px !important; font-size: 20px !important; line-height: 35px !important; }
-    .login-container { width: 90% !important; padding: 20px !important; }
-}
+    /* ÍCONES: Grandes e fáceis de clicar */
+    #desktop {
+        justify-content: center; /* Centraliza no meio da tela */
+        padding-top: 20px;
+        gap: 15px;
+    }
+    .desktop-icon {
+        width: 95px !important;
+        margin: 5px;
+    }
+    .desktop-icon img {
+        width: 58px !important; /* Ícone bem visível */
+    }
+    .desktop-icon div {
+        font-size: 13px !important;
+        text-shadow: 1px 1px 2px black;
+    }
 
-/* ============================================================
-   🚨 CORREÇÃO DE PAISAGEM (CELULAR DEITADO) 🚨
-   Focada em resolver o bug do A22 (Colisão de Texto)
-   ============================================================ */
-@media (max-width: 900px) and (orientation: landscape) {
-    
-    /* 1. Joga o SCORE para baixo (perto do relógio) para limpar o topo */
-    #score-box {
-        top: auto !important;        /* Tira do topo */
-        bottom: 55px !important;     /* Cola acima da barra de tarefas */
-        right: 10px !important;
-        font-size: 16px !important;  
-        background: rgba(0,0,0,0.5); /* Fundo escuro pra ler melhor */
-        padding: 2px 5px;
-        border-radius: 4px;
+    /* MENU INICIAR & BARRA */
+    .start-menu {
+        width: 90% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        bottom: 60px !important;
         z-index: 99999;
     }
+    #taskbar { height: 55px !important; }
+    .start-btn { height: 45px !important; font-size: 16px !important; }
 
-    /* 2. Arruma a Caixa de Missão (Agora tem o topo só pra ela) */
+    /* HUD (Missão e Score) */
     #mission-box {
-        top: 5px !important;         
-        width: auto !important;      
-        max-width: 70% !important;   /* Não deixa ocupar a tela toda */
-        padding: 5px 15px !important;
+        width: 90% !important;
+        font-size: 12px !important;
+        padding: 8px !important;
     }
-    
-    #mission-text { 
-        font-size: 13px !important; 
-        white-space: nowrap;         
-        overflow: hidden;
-        text-overflow: ellipsis;     
-    }
-    
-    .mission-label { 
-        font-size: 9px !important; 
-        display: inline-block;       
-        margin-right: 5px;
+}
+
+/* --- 3. LAYOUT PARA CELULAR DEITADO (Landscape) --- */
+/* Aqui corrigimos o problema do A22 e telas achatadas */
+@media (max-width: 900px) and (orientation: landscape) {
+
+    /* HUD: Score desce para limpar o topo */
+    #score-box {
+        top: auto !important;
+        bottom: 60px !important;      /* Fica logo acima da barra de tarefas */
+        right: 15px !important;
+        background: rgba(0,0,0,0.6);  /* Fundo escuro para ler melhor */
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 14px !important;
+        z-index: 9000;
     }
 
-    /* 3. Janelas: Garante que não vazem para os lados */
+    /* HUD: Missão sobe e fica compacta */
+    #mission-box {
+        top: 5px !important;
+        width: auto !important;
+        max-width: 60% !important;    /* Não ocupa a tela toda */
+        padding: 4px 15px !important;
+    }
+    #mission-text { font-size: 12px !important; }
+    .mission-label { display: none; } /* Esconde o título "Missão Atual" pra economizar espaço */
+
+    /* JANELAS: Mais baixas e largas */
     .janela-flutuante, #program-manager, .janela-leaderboard, #email-window {
-        height: 75vh !important;     
-        top: 45% !important;         
-        width: 80% !important;       
+        height: 75vh !important;      /* Menor altura */
+        width: 85% !important;        /* Larga, mas com margem */
+        top: 45% !important;          /* Levemente pra cima */
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
     }
-    
-    #desktop { padding-bottom: 60px; }
+
+    /* ÍCONES: Ajuste para não ficarem embaixo da barra */
+    #desktop {
+        padding-bottom: 60px;
+        justify-content: flex-start; /* Alinha à esquerda no modo paisagem */
+        padding-left: 20px;
+    }
 }
 
-/* ============================================================
-   TELAS MINÚSCULAS
-   ============================================================ */
+/* --- 4. TELAS MINÚSCULAS (Galaxy Fold fechado / iPhone SE) --- */
 @media (max-width: 360px) {
-    .titulo-texto span { font-size: 10px !important; max-width: 120px; }
-    .menu-item span { font-size: 12px !important; }
+    .desktop-icon { width: 75px !important; }
+    .desktop-icon img { width: 40px !important; }
     h2 { font-size: 14px !important; }
-    .rodape-acoes button { font-size: 11px !important; }
+    .rodape-acoes button { width: 100% !important; margin-bottom: 5px; }
 }
