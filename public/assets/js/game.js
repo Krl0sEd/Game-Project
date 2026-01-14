@@ -314,7 +314,7 @@ function checarMissao(acao) {
 
     window.acaoDesligar = function() {
         // 1. O alerta aparece primeiro (o código pausa aqui até dar OK)
-        alert('Faz de conta que desligou...');
+        alert('Desligando...');
 
         // 2. Quando der OK, ele verifica se está na última missão (id 6)
         if (missaoAtual === 6) {

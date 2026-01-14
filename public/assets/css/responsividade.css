@@ -2,14 +2,14 @@
    RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (FINAL VERSION)
    ============================================================ */
 
-/* --- 0. PREVENÇÃO DE BUGS MOBILE --- */
+/* --- 0. PREVENÇÃO DE BUGS MOBILE (iPhone/Android) --- */
 @media (max-width: 768px) {
     /* Evita que o iPhone dê zoom automático ao clicar em inputs */
     input, textarea, select {
         font-size: 16px !important; 
     }
 
-    /* Remove o "highlight" azul chato ao tocar em botões no Android/iOS */
+    /* Remove o "highlight" azul chato ao tocar em botões */
     * {
         -webkit-tap-highlight-color: transparent;
         box-sizing: border-box;
@@ -39,13 +39,13 @@
         width: 95% !important;
         max-width: none !important;
         height: auto !important;
-        max-height: 85vh !important; /* Deixa espaço pro teclado virtual */
+        max-height: 85vh !important; /* Deixa espaço pro teclado */
         
         /* Centralização Suprema */
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        border-radius: 4px; /* Leve arredondada mobile */
+        border-radius: 4px;
     }
 
     /* Ajuste específico para o Explorador de Arquivos */
@@ -56,7 +56,7 @@
     }
     
     #program-manager .window-content {
-        overflow-y: auto; /* Rolagem interna se tiver muitas pastas */
+        overflow-y: auto; 
         flex: 1;
     }
 
@@ -68,37 +68,39 @@
     }
 
     .tabela-retro th, .tabela-retro td {
-        padding: 8px 4px !important; /* Mais espaço vertical */
+        padding: 8px 4px !important;
         font-size: 12px !important;
-        white-space: nowrap; /* Não quebra linha do nome */
+        white-space: nowrap;
     }
 
-    /* --- ÁREA DE TRABALHO (Ícones) --- */
+    /* --- ÁREA DE TRABALHO (Ícones MAIORES no Mobile) --- */
     #desktop {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-content: flex-start;
-        justify-content: center; /* Ícones centralizados no mobile */
+        justify-content: center; /* Centraliza */
         padding-top: 20px;
         gap: 15px;
     }
 
     .desktop-icon {
-        width: 80px;
+        /* AUMENTADO: De 80px para 95px para facilitar o toque */
+        width: 95px !important; 
         margin: 5px;
-        text-shadow: 1px 1px 2px black; /* Melhor leitura no mobile */
+        text-shadow: 1px 1px 2px black;
     }
 
     .desktop-icon img {
-        width: 42px !important; /* Ícone um pouco maior para o dedo */
+        /* AUMENTADO: De 42px para 54px */
+        width: 54px !important; 
     }
 
     /* --- MENU INICIAR --- */
     .start-menu {
         width: 90% !important;
         left: 50% !important;
-        transform: translateX(-50%) !important; /* Centraliza menu iniciar */
+        transform: translateX(-50%) !important;
         bottom: 55px !important;
         z-index: 99999;
     }
@@ -118,10 +120,10 @@
     /* --- BOTÕES DE FECHAR (Área de toque segura) --- */
     .window-controls .btn-control,
     .botoes-janela button {
-        width: 35px !important;
-        height: 30px !important;
-        font-size: 18px !important;
-        line-height: 30px !important;
+        width: 40px !important; /* Mais fácil de acertar o X */
+        height: 35px !important;
+        font-size: 20px !important;
+        line-height: 35px !important;
     }
     
     /* --- TELA DE LOGIN --- */
@@ -143,16 +145,15 @@
 
 /* ============================================================
    AJUSTE DE PAISAGEM (CELULAR DEITADO)
-   Evita que a janela fique maior que a altura da tela
    ============================================================ */
 @media (max-width: 900px) and (orientation: landscape) {
     .janela-flutuante, #program-manager, .janela-leaderboard {
         height: 85vh !important;
-        top: 45% !important; /* Sobe um pouco por causa do teclado */
+        top: 45% !important;
     }
     
     #desktop {
-        padding-bottom: 50px; /* Espaço para não cobrir ícones */
+        padding-bottom: 50px;
     }
 }
 

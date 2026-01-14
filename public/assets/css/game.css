@@ -33,11 +33,12 @@ body {
     /* --- FUNDO RETRÔ --- */
     background-color: #000040;
     /* Padrão de pontinhos (Dithering fake) */
-    background-image: 
-        radial-gradient(var(--win-cinza) 15%, transparent 16%),
-        radial-gradient(#00ffff 15%, transparent 16%);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+    /* .. sai da pasta css, entra em img */
+    background-image: url('../img/wallpaper.jpeg'); 
+    background-size: cover; /* Faz a imagem cobrir a tela toda */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* O fundo fica parado ao rolar */
 }
 
 /* ============================================================
@@ -55,7 +56,7 @@ body {
 }
 
 .desktop-icon {
-    width: 85px;
+    width: 150px;
     text-align: center;
     color: white;
     cursor: pointer;
@@ -66,8 +67,8 @@ body {
 }
 
 .desktop-icon img {
-    width: 48px;
-    height: 48px;
+    width: 70px;
+    height: 70px;
     margin-bottom: 5px;
     image-rendering: pixelated; /* Deixa a imagem crocante */
 }
