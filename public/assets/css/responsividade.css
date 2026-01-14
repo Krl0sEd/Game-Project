@@ -1,184 +1,5 @@
 /* ============================================================
-   RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (FINAL VERSION)
-   ============================================================ */
-
-/* --- 0. PREVENÇÃO DE BUGS MOBILE (iPhone/Android) --- */
-@media (max-width: 768px) {
-    /* Evita que o iPhone dê zoom automático ao clicar em inputs */
-    input, textarea, select {
-        font-size: 16px !important; 
-    }
-
-    /* Remove o "highlight" azul chato ao tocar em botões */
-    * {
-        -webkit-tap-highlight-color: transparent;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed; /* Fundo não rola junto */
-        overflow: hidden; 
-        position: fixed; /* Trava o scroll elástico do iOS */
-        width: 100%;
-        height: 100%;
-    }
-}
-
-/* --- 1. AJUSTES PARA TABLETS E CELULARES EM PÉ --- */
-@media (max-width: 768px) {
-
-    /* --- JANELAS FLUTUANTES (Centralização Perfeita) --- */
-    .janela-leaderboard, 
-    .janela-flutuante,
-    .janela-senha-rh, 
-    #program-manager, 
-    #email-window,
-    #janela-senha {
-        width: 95% !important;
-        max-width: none !important;
-        height: auto !important;
-        max-height: 85vh !important; /* Deixa espaço pro teclado */
-        
-        /* Centralização Suprema */
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        border-radius: 4px;
-    }
-
-    /* Ajuste específico para o Explorador de Arquivos */
-    #program-manager {
-        height: 70vh !important; 
-        display: flex;
-        flex-direction: column;
-    }
-    
-    #program-manager .window-content {
-        overflow-y: auto; 
-        flex: 1;
-    }
-
-    /* --- LEADERBOARD (Tabela Rolável) --- */
-    .tabela-container {
-        overflow-x: auto; 
-        max-height: 50vh;
-        border: 1px solid #999;
-    }
-
-    .tabela-retro th, .tabela-retro td {
-        padding: 8px 4px !important;
-        font-size: 12px !important;
-        white-space: nowrap;
-    }
-
-    /* --- ÁREA DE TRABALHO (Ícones MAIORES no Mobile) --- */
-    #desktop {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        justify-content: center; /* Centraliza */
-        padding-top: 20px;
-        gap: 15px;
-    }
-
-    .desktop-icon {
-        /* AUMENTADO: De 80px para 95px para facilitar o toque */
-        width: 95px !important; 
-        margin: 5px;
-        text-shadow: 1px 1px 2px black;
-    }
-
-    .desktop-icon img {
-        /* AUMENTADO: De 42px para 54px */
-        width: 54px !important; 
-    }
-
-    /* --- MENU INICIAR --- */
-    .start-menu {
-        width: 90% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        bottom: 55px !important;
-        z-index: 99999;
-    }
-
-    /* --- BARRA DE TAREFAS --- */
-    #taskbar {
-        height: 50px !important;
-        z-index: 99998;
-    }
-
-    .start-btn {
-        padding: 5px 20px !important;
-        font-size: 16px !important;
-        height: 40px;
-    }
-
-    /* --- BOTÕES DE FECHAR (Área de toque segura) --- */
-    .window-controls .btn-control,
-    .botoes-janela button {
-        width: 40px !important; /* Mais fácil de acertar o X */
-        height: 35px !important;
-        font-size: 20px !important;
-        line-height: 35px !important;
-    }
-    
-    /* --- TELA DE LOGIN --- */
-    .login-container {
-        width: 90% !important;
-        padding: 20px !important;
-    }
-
-    .input-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .input-group button {
-        width: 100% !important;
-        padding: 10px !important;
-    }
-}
-
-/* ============================================================
-   AJUSTE DE PAISAGEM (CELULAR DEITADO)
-   ============================================================ */
-@media (max-width: 900px) and (orientation: landscape) {
-    .janela-flutuante, #program-manager, .janela-leaderboard {
-        height: 85vh !important;
-        top: 45% !important;
-    }
-    
-    #desktop {
-        padding-bottom: 50px;
-    }
-}
-
-/* ============================================================
-   TELAS MINÚSCULAS (Galaxy Fold fechado / iPhone SE antigo)
-   ============================================================ */
-@media (max-width: 360px) {
-    .titulo-texto span {
-        font-size: 10px !important;
-        max-width: 120px;
-    }
-    
-    .menu-item span {
-        font-size: 12px !important;
-    }
-    
-    h2 { font-size: 14px !important; }
-    
-    .rodape-acoes button {
-        font-size: 11px !important;
-    }
-}
-
-/* ============================================================
-   RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (VERSÃO A22 FIX)
+   RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (VERSÃO FINAL A22)
    ============================================================ */
 
 /* --- 0. PREVENÇÃO DE BUGS MOBILE (iPhone/Android) --- */
@@ -197,7 +18,7 @@
     /* Centralização padrão das janelas */
     .janela-leaderboard, .janela-flutuante, .janela-senha-rh, 
     #program-manager, #email-window, #janela-senha {
-        /* FIX: Reduzi de 95% para 90% para não grudar na borda */
+        /* Fix para não grudar na borda */
         width: 90% !important; 
         max-width: none !important; height: auto !important;
         max-height: 85vh !important;
@@ -209,7 +30,7 @@
     #program-manager { height: 70vh !important; display: flex; flex-direction: column; }
     #program-manager .window-content { overflow-y: auto; flex: 1; }
     
-    /* Ícones maiores (como você pediu antes) */
+    /* Ícones maiores */
     #desktop { display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px; gap: 15px; }
     .desktop-icon { width: 95px !important; margin: 5px; text-shadow: 1px 1px 2px black; }
     .desktop-icon img { width: 54px !important; }
@@ -223,35 +44,54 @@
 }
 
 /* ============================================================
-   🚨 CORREÇÃO DE EMERGÊNCIA: PAISAGEM (CELULAR DEITADO) 🚨
-   Aqui é onde arrumamos o bug do print!
+   🚨 CORREÇÃO DE PAISAGEM (CELULAR DEITADO) 🚨
+   Focada em resolver o bug do A22 (Colisão de Texto)
    ============================================================ */
 @media (max-width: 900px) and (orientation: landscape) {
     
-    /* 1. Arrumar o Score e a Missão trepados */
+    /* 1. Joga o SCORE para baixo (perto do relógio) para limpar o topo */
     #score-box {
-        font-size: 18px !important; /* Diminui a fonte do score */
-        top: 10px !important;
+        top: auto !important;        /* Tira do topo */
+        bottom: 55px !important;     /* Cola acima da barra de tarefas */
         right: 10px !important;
+        font-size: 16px !important;  
+        background: rgba(0,0,0,0.5); /* Fundo escuro pra ler melhor */
+        padding: 2px 5px;
+        border-radius: 4px;
+        z-index: 99999;
     }
 
+    /* 2. Arruma a Caixa de Missão (Agora tem o topo só pra ela) */
     #mission-box {
-        top: 10px !important;
-        padding: 5px 10px !important; /* Diminui a caixa da missão */
-        width: 55% !important; /* Força ela a ser mais estreita para não bater no score */
-    }
-    #mission-text { font-size: 14px !important; }
-    .mission-label { font-size: 10px !important; }
-
-    /* 2. Arrumar a janela cortada na direita */
-    .janela-flutuante, #program-manager, .janela-leaderboard, #email-window {
-        height: 80vh !important; /* Altura segura */
-        top: 48% !important; /* Sobe um tiquinho */
-        /* FIX CRÍTICO: Reduz a largura quando deitado para não vazar na direita */
-        width: 85% !important; 
+        top: 5px !important;         
+        width: auto !important;      
+        max-width: 70% !important;   /* Não deixa ocupar a tela toda */
+        padding: 5px 15px !important;
     }
     
-    #desktop { padding-bottom: 40px; }
+    #mission-text { 
+        font-size: 13px !important; 
+        white-space: nowrap;         
+        overflow: hidden;
+        text-overflow: ellipsis;     
+    }
+    
+    .mission-label { 
+        font-size: 9px !important; 
+        display: inline-block;       
+        margin-right: 5px;
+    }
+
+    /* 3. Janelas: Garante que não vazem para os lados */
+    .janela-flutuante, #program-manager, .janela-leaderboard, #email-window {
+        height: 75vh !important;     
+        top: 45% !important;         
+        width: 80% !important;       
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    #desktop { padding-bottom: 60px; }
 }
 
 /* ============================================================
