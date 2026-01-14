@@ -176,3 +176,90 @@
         font-size: 11px !important;
     }
 }
+
+/* ============================================================
+   RESPONSIVIDADE ABSOLUTA - OFFICE SIMULATOR (VERSÃO A22 FIX)
+   ============================================================ */
+
+/* --- 0. PREVENÇÃO DE BUGS MOBILE (iPhone/Android) --- */
+@media (max-width: 768px) {
+    input, textarea, select { font-size: 16px !important; }
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    body {
+        background-size: cover; background-position: center;
+        background-attachment: fixed; overflow: hidden; 
+        position: fixed; width: 100%; height: 100%;
+    }
+}
+
+/* --- 1. AJUSTES GERAIS PARA MOBILE (EM PÉ OU DEITADO) --- */
+@media (max-width: 768px) {
+    /* Centralização padrão das janelas */
+    .janela-leaderboard, .janela-flutuante, .janela-senha-rh, 
+    #program-manager, #email-window, #janela-senha {
+        /* FIX: Reduzi de 95% para 90% para não grudar na borda */
+        width: 90% !important; 
+        max-width: none !important; height: auto !important;
+        max-height: 85vh !important;
+        top: 50% !important; left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        border-radius: 4px;
+    }
+
+    #program-manager { height: 70vh !important; display: flex; flex-direction: column; }
+    #program-manager .window-content { overflow-y: auto; flex: 1; }
+    
+    /* Ícones maiores (como você pediu antes) */
+    #desktop { display: flex; flex-wrap: wrap; justify-content: center; padding-top: 20px; gap: 15px; }
+    .desktop-icon { width: 95px !important; margin: 5px; text-shadow: 1px 1px 2px black; }
+    .desktop-icon img { width: 54px !important; }
+
+    /* Menus e Barras */
+    .start-menu { width: 90% !important; left: 50% !important; transform: translateX(-50%) !important; bottom: 55px !important; z-index: 99999; }
+    #taskbar { height: 50px !important; z-index: 99998; }
+    .start-btn { padding: 5px 20px !important; font-size: 16px !important; height: 40px; }
+    .window-controls .btn-control, .botoes-janela button { width: 40px !important; height: 35px !important; font-size: 20px !important; line-height: 35px !important; }
+    .login-container { width: 90% !important; padding: 20px !important; }
+}
+
+/* ============================================================
+   🚨 CORREÇÃO DE EMERGÊNCIA: PAISAGEM (CELULAR DEITADO) 🚨
+   Aqui é onde arrumamos o bug do print!
+   ============================================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+    
+    /* 1. Arrumar o Score e a Missão trepados */
+    #score-box {
+        font-size: 18px !important; /* Diminui a fonte do score */
+        top: 10px !important;
+        right: 10px !important;
+    }
+
+    #mission-box {
+        top: 10px !important;
+        padding: 5px 10px !important; /* Diminui a caixa da missão */
+        width: 55% !important; /* Força ela a ser mais estreita para não bater no score */
+    }
+    #mission-text { font-size: 14px !important; }
+    .mission-label { font-size: 10px !important; }
+
+    /* 2. Arrumar a janela cortada na direita */
+    .janela-flutuante, #program-manager, .janela-leaderboard, #email-window {
+        height: 80vh !important; /* Altura segura */
+        top: 48% !important; /* Sobe um tiquinho */
+        /* FIX CRÍTICO: Reduz a largura quando deitado para não vazar na direita */
+        width: 85% !important; 
+    }
+    
+    #desktop { padding-bottom: 40px; }
+}
+
+/* ============================================================
+   TELAS MINÚSCULAS
+   ============================================================ */
+@media (max-width: 360px) {
+    .titulo-texto span { font-size: 10px !important; max-width: 120px; }
+    .menu-item span { font-size: 12px !important; }
+    h2 { font-size: 14px !important; }
+    .rodape-acoes button { font-size: 11px !important; }
+}
