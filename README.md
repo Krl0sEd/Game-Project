@@ -51,3 +51,11 @@ Para os instrutores ou chefes do setor:
 ## Explicações técnicas
 
 - Explicação técnica dos conceitos de **JavaScript (Vanilla)** que utilizei no projeto se encontrarão em arquivo localizado na pasta raiz (documentação técnica). Só acesse caso seja desenvolvedor ou se interesse pelo assunto!
+
+## 👨‍💻 Autor
+
+**Carlos Eduardo de Oliveira Bucazio**
+- 💻 Estudante de **Análise e Desenvolvimento de Sistemas** | Foco em **DevOps e Infraestrutura**
+- 📧 **Email**: [cbucazio@gmail.com](mailto:cbucazio@gmail.com)
+- 🌐 **GitHub**: [Krl0sEd](https://github.com/Krl0sEd)
+- 🧑‍💼 **Linkedin**: [linkedin.com/in/carlos-eduardo-de-oliveira-bucazio-516a7937a](https://www.linkedin.com/in/carlos-eduardo-de-oliveira-bucazio-516a7937a)
