@@ -58,4 +58,9 @@ Para os instrutores ou chefes do setor:
 - 💻 Estudante de **Análise e Desenvolvimento de Sistemas** | Foco em **DevOps e Infraestrutura**
 - 📧 **Email**: [cbucazio@gmail.com](mailto:cbucazio@gmail.com)
 - 🌐 **GitHub**: [Krl0sEd](https://github.com/Krl0sEd)
+- 🧑‍💼 **Linkedin**: [Carlos Eduardo de Oliveira Bucazio](https://www.linkedin.com/in/carlos-eduardo-de-oliveira-bucazio-516a7937a)
+
+
+---
+- 🌐 **GitHub**: [Krl0sEd](https://github.com/Krl0sEd)
 - 🧑‍💼 **Linkedin**: [linkedin.com/in/carlos-eduardo-de-oliveira-bucazio-516a7937a](https://www.linkedin.com/in/carlos-eduardo-de-oliveira-bucazio-516a7937a)
